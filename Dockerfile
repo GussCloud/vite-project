@@ -1,4 +1,4 @@
-# Etapa 1: Construir a aplicação com Node.js
+# Etapa 1: Construir a aplicação
 FROM node:18 AS builder
 
 # Diretório de trabalho dentro do container
@@ -16,20 +16,20 @@ COPY . .
 # Gerar a build de produção
 RUN npm run build
 
-# Etapa 2: Configurar o Nginx para servir os arquivos estáticos
-FROM nginx:alpine AS production
+# Etapa 2: Rodar a aplicação
+FROM node:18 AS runner
 
-# Copiar arquivos da build para a pasta pública do Nginx
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Diretório de trabalho dentro do container
+WORKDIR /app
 
-# Remover configuração padrão do Nginx
-RUN rm /etc/nginx/conf.d/default.conf
+# Copiar os arquivos da build para o container
+COPY --from=builder /app/dist ./dist
 
-# Adicionar uma nova configuração para gerenciar o SPA
-COPY nginx.conf /etc/nginx/conf.d
+# Instalar o Vite como dependência global para servir os arquivos
+RUN npm install -g vite
 
-# Expor a porta padrão do Nginx
-EXPOSE 80
+# Expor a porta do Vite
+EXPOSE 4173
 
-# Comando para iniciar o Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Comando para rodar o servidor Vite em modo preview
+CMD ["vite", "preview"]
