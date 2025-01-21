@@ -31,5 +31,5 @@ RUN npm install -g vite
 # Expor a porta do Vite
 EXPOSE 4173
 
-# Comando para rodar o servidor Vite em modo preview
-CMD ["vite", "preview"]
+# Comando para rodar o servidor Vite em modo preview, ouvindo todas as interfaces
+CMD ["vite", "preview", "--host", "0.0.0.0"]
