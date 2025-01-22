@@ -30,32 +30,64 @@ const MenuConnect: React.FC = () => {
       label: "Agendar Post",
       icon: "fas fa-calendar-alt",
       submenu: [
-        { label: "Novo Post", icon: "fas fa-plus" },
-        { label: "Posts Agendados", icon: "fas fa-list" },
+        {
+          label: "Novo Post",
+          icon: "fas fa-plus",
+          action: () => navigate("#"),
+        },
+        {
+          label: "Posts Agendados",
+          icon: "fas fa-list",
+          action: () => navigate("#"),
+        },
       ],
     },
     {
       label: "Calendário",
       icon: "fas fa-calendar",
       submenu: [
-        { label: "Eventos", icon: "fas fa-calendar-day" },
-        { label: "Tarefas", icon: "fas fa-tasks" },
+        {
+          label: "Eventos",
+          icon: "fas fa-calendar-day",
+          action: () => navigate("#"),
+        },
+        {
+          label: "Tarefas",
+          icon: "fas fa-tasks",
+          action: () => navigate("#"),
+        },
       ],
     },
     {
       label: "Relatórios",
       icon: "fas fa-chart-line",
       submenu: [
-        { label: "Relatório Mensal", icon: "fas fa-file-alt" },
-        { label: "Relatório Semanal", icon: "fas fa-file-contract" },
+        {
+          label: "Relatório Mensal",
+          icon: "fas fa-file-alt",
+          action: () => navigate("#"),
+        },
+        {
+          label: "Relatório Semanal",
+          icon: "fas fa-file-contract",
+          action: () => navigate("#"),
+        },
       ],
     },
     {
       label: "Insights IA",
       icon: "fas fa-lightbulb",
       submenu: [
-        { label: "Sugestões de Post", icon: "fas fa-magic" },
-        { label: "Análise de Dados", icon: "fas fa-brain" },
+        {
+          label: "Sugestões de Post",
+          icon: "fas fa-magic",
+          action: () => navigate("#"),
+        },
+        {
+          label: "Análise de Dados",
+          icon: "fas fa-brain",
+          action: () => navigate("#"),
+        },
       ],
     },
   ];
@@ -131,11 +163,11 @@ const MenuConnect: React.FC = () => {
 
               {/* Submenu */}
               {activeMenu === menu.label && menu.submenu && (
-                <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-md p-2 w-48">
+                <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-md p-2 w-max min-w-[10rem]">
                   {menu.submenu.map((item) => (
                     <button
                       key={item.label}
-                      onClick={item.action ? item.action : undefined}
+                      onClick={item.action}
                       className="flex items-center space-x-2 text-gray-600 hover:bg-gray-100 p-2 rounded-md w-full text-left"
                     >
                       <i className={`${item.icon} text-gray-500`}></i>
