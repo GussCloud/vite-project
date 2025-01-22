@@ -135,7 +135,7 @@ const MenuConnect: React.FC = () => {
                   {menu.submenu.map((item) => (
                     <button
                       key={item.label}
-                      onClick={item.action}
+                      onClick={item.action ? item.action : undefined}
                       className="flex items-center space-x-2 text-gray-600 hover:bg-gray-100 p-2 rounded-md w-full text-left"
                     >
                       <i className={`${item.icon} text-gray-500`}></i>
