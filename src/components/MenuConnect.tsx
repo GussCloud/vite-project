@@ -93,7 +93,7 @@ const MenuConnect: React.FC = () => {
         {/* Logotipo */}
         <div className="flex items-center space-x-4">
           <img
-            src="https://via.placeholder.com/40"
+            src="https://media.licdn.com/dms/image/v2/C560BAQEDWqhCd8NjCQ/company-logo_200_200/company-logo_200_200/0/1630647394125/evup_logo?e=1745452800&v=beta&t=9aYENd0uDMZ3wQNSKiHfG7M-jS5w7TQRaYPTqdR_FjM"
             alt="Logo"
             className="w-10 h-10"
           />

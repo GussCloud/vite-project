@@ -37,7 +37,7 @@ export const authenticateUser = async (
 export const setSessionAuthenticated = (): void => {
   Cookies.set(AUTH_COOKIE_NAME, "true", {
     expires: 1, // O cookie expira em 1 dia
-    secure: true, // Apenas via HTTPS
+    secure: false, // Apenas via HTTPS
     sameSite: "Strict", // Previne envio para outras origens
   });
 };

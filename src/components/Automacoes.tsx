@@ -14,7 +14,7 @@ const Automacoes: React.FC = () => {
     "Novo lead registrado",
     "Aniversariantes",
   ];
-
+  console.log(isAuthenticated);
   useEffect(() => {
     if (!isAuthenticated()) {
       navigate("/login");
