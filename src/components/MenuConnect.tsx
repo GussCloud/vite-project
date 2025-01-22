@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -49,21 +49,33 @@ const MenuConnect: React.FC = () => {
   ];
 
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
-  const [profileMenuOpen, setProfileMenuOpen] = useState(false); // Menu dropdown do perfil
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const profileMenuRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
 
+  // Fecha o menu de perfil ao clicar fora
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        profileMenuRef.current &&
+        !profileMenuRef.current.contains(event.target as Node)
+      ) {
+        setProfileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const handleMouseEnter = (label: string) => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-    }
     setActiveMenu(label);
   };
 
   const handleMouseLeave = () => {
-    timerRef.current = setTimeout(() => {
-      setActiveMenu(null);
-    }, 200);
+    setActiveMenu(null);
   };
 
   const toggleProfileMenu = () => {
@@ -71,8 +83,8 @@ const MenuConnect: React.FC = () => {
   };
 
   const handleLogout = () => {
-    Cookies.remove("isAuthenticated"); // Remove o cookie de autenticação
-    navigate("/login"); // Redireciona para a tela de login
+    Cookies.remove("isAuthenticated");
+    navigate("/login");
   };
 
   return (
@@ -107,11 +119,7 @@ const MenuConnect: React.FC = () => {
 
               {/* Submenu */}
               {activeMenu === menu.label && (
-                <div
-                  className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-md p-2 w-48"
-                  onMouseEnter={() => handleMouseEnter(menu.label)}
-                  onMouseLeave={handleMouseLeave}
-                >
+                <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-md p-2 w-48">
                   {menu.submenu.map((item) => (
                     <a
                       key={item.label}
@@ -129,7 +137,7 @@ const MenuConnect: React.FC = () => {
         </nav>
 
         {/* Perfil */}
-        <div className="relative">
+        <div className="relative" ref={profileMenuRef}>
           <button
             onClick={toggleProfileMenu}
             className="flex items-center space-x-2 text-gray-500 hover:text-orange-500"
