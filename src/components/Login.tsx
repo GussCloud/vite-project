@@ -23,7 +23,7 @@ const Login: React.FC = () => {
 
       if (data.error === "false") {
         setSessionAuthenticated(); // Armazena a autenticação no cookie
-        navigate("/automacoes"); // Redireciona para automações
+        navigate("/dashboard"); // Redireciona para automações
       } else {
         throw new Error("Usuário ou senha inválidos.");
       }

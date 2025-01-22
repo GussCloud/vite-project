@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Login from "./components/Login";
 import Automacoes from "./components/Automacoes";
+import Dashboard from "./components/Dashboard";
 import { isAuthenticated } from "./services/authService"; // Função para verificar autenticação
 
 // Componente para Rotas Protegidas
@@ -30,6 +31,14 @@ const App: React.FC = () => {
           element={
             <ProtectedRoute>
               <Automacoes />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
             </ProtectedRoute>
           }
         />

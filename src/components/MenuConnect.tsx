@@ -8,10 +8,22 @@ const MenuConnect: React.FC = () => {
     {
       label: "Dashboard",
       icon: "fas fa-tachometer-alt",
+      action: () => navigate("/dashboard"),
+    },
+    {
+      label: "Comunicação",
+      icon: "fas fa-comments",
       submenu: [
-        { label: "Visão Geral", icon: "fas fa-chart-pie" },
-        { label: "Indicadores", icon: "fas fa-chart-line" },
-        { label: "Configurações", icon: "fas fa-cogs" },
+        {
+          label: "Automações",
+          icon: "fas fa-robot",
+          action: () => navigate("/automacoes"),
+        },
+        {
+          label: "Histórico de Notificação",
+          icon: "fas fa-history",
+          action: () => navigate("/historico-notificacao"),
+        },
       ],
     },
     {
@@ -106,29 +118,29 @@ const MenuConnect: React.FC = () => {
             <div
               key={menu.label}
               className="relative"
-              onMouseEnter={() => handleMouseEnter(menu.label)}
-              onMouseLeave={handleMouseLeave}
+              onMouseEnter={() => menu.submenu && handleMouseEnter(menu.label)}
+              onMouseLeave={menu.submenu && handleMouseLeave}
             >
-              <a
-                href="#"
+              <button
+                onClick={menu.action}
                 className="text-gray-500 hover:text-orange-500 flex flex-col items-center"
               >
                 <i className={`${menu.icon} text-lg`}></i>
                 <span className="text-sm">{menu.label}</span>
-              </a>
+              </button>
 
               {/* Submenu */}
-              {activeMenu === menu.label && (
+              {activeMenu === menu.label && menu.submenu && (
                 <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-md p-2 w-48">
                   {menu.submenu.map((item) => (
-                    <a
+                    <button
                       key={item.label}
-                      href="#"
-                      className="flex items-center space-x-2 text-gray-600 hover:bg-gray-100 p-2 rounded-md"
+                      onClick={item.action}
+                      className="flex items-center space-x-2 text-gray-600 hover:bg-gray-100 p-2 rounded-md w-full text-left"
                     >
                       <i className={`${item.icon} text-gray-500`}></i>
                       <span>{item.label}</span>
-                    </a>
+                    </button>
                   ))}
                 </div>
               )}
