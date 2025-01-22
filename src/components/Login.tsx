@@ -27,8 +27,12 @@ const Login: React.FC = () => {
       } else {
         throw new Error("Usuário ou senha inválidos.");
       }
-    } catch (error: any) {
-      setErrorMessage(error.message || "Erro ao realizar o login.");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message || "Erro ao realizar o login.");
+      } else {
+        setErrorMessage("Erro ao realizar o login.");
+      }
     } finally {
       setLoading(false);
     }

@@ -21,12 +21,26 @@ const Automacoes: React.FC = () => {
     }
   }, [navigate]);
 
-  const [cards, setCards] = useState<any[]>([]);
+  interface Card {
+    id: number;
+    descricao: string;
+    tipoEvento: string;
+    enviosHoje: number;
+    enviosDias: number[];
+    mensagens: {
+      criadas: number;
+      enviadas: number;
+      entregues: number;
+    };
+    status: string;
+  }
+
+  const [cards, setCards] = useState<Card[]>([]);
   const [totalAutomacoes, setTotalAutomacoes] = useState(0);
   const [totalEnvios, setTotalEnvios] = useState(0);
   const [totalEntregues, setTotalEntregues] = useState(0);
   const [totalPendentes, setTotalPendentes] = useState(0);
-  const [modalData, setModalData] = useState<any | null>(null);
+  const [modalData, setModalData] = useState<Card["mensagens"] | null>(null);
   const [modalChart, setModalChart] = useState<Chart | null>(null);
 
   const randomNumber = (min: number, max: number) =>
@@ -119,7 +133,7 @@ const Automacoes: React.FC = () => {
     });
   }, [cards]);
 
-  const abrirModal = (mensagens: any) => {
+  const abrirModal = (mensagens: Card["mensagens"]) => {
     setModalData(mensagens);
 
     setTimeout(() => {
