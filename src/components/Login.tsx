@@ -1,49 +1,34 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  authenticateUser,
+  setSessionAuthenticated,
+} from "../services/authService";
 
-interface LoginProps {
-  setIsAuthenticated: (value: boolean) => void;
-}
-
-const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
+const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleLogin = async (e: React.FormEvent) => {
+  // Submissão do formulário
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setErrorMessage("");
 
     try {
-      const response = await fetch(
-        "https://flows.guss.dev.br/webhook-test/39c6b176-4551-4ce4-965d-e9cb265794e6",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, password }),
-        }
-      );
-
-      const data = await response.json();
+      const data = await authenticateUser(username, password);
 
       if (data.error === "false") {
-        setIsAuthenticated(true);
-        navigate("/automacoes"); // Redireciona para a página de automações
+        setSessionAuthenticated(); // Armazena a autenticação no cookie
+        navigate("/automacoes"); // Redireciona para automações
       } else {
-        setErrorMessage("Usuário ou senha inválidos.");
+        throw new Error("Usuário ou senha inválidos.");
       }
-    } catch (error) {
-      setErrorMessage("Erro ao realizar o login.");
+    } catch (error: any) {
+      setErrorMessage(error.message || "Erro ao realizar o login.");
     } finally {
       setLoading(false);
     }
@@ -66,7 +51,7 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
           <h2 className="text-2xl font-bold text-gray-800 mb-6">
             Bem-vindo de volta!
           </h2>
-          <form onSubmit={handleLogin} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {errorMessage && (
               <div className="bg-red-100 text-red-700 p-3 rounded-lg">
                 {errorMessage}
@@ -84,11 +69,12 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                placeholder="Digite seu usuário"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
-            <div className="relative">
+            <div>
               <label
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-600 mb-2"
@@ -97,26 +83,13 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
               </label>
               <input
                 id="password"
-                type={showPassword ? "text" : "password"}
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 pr-12 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Digite sua senha"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
-              <button
-                type="button"
-                onClick={togglePasswordVisibility}
-                className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700"
-              >
-                <i
-                  className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
-                />
-              </button>
-            </div>
-            <div className="text-right">
-              <a href="#" className="text-sm text-blue-500 hover:underline">
-                Esqueci minha senha
-              </a>
             </div>
             <button
               type="submit"

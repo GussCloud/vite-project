@@ -1,16 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { Chart, registerables } from "chart.js";
-import MenuLateral from "./MenuLateral";
+import MenuConnect from "./MenuConnect";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "../services/authService";
 
 Chart.register(...registerables);
 
 const Automacoes: React.FC = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const tiposDeEventos = [
     "Segmentação de clientes",
     "Segmentação de LEADS",
     "Novo lead registrado",
     "Aniversariantes",
   ];
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   const [cards, setCards] = useState<any[]>([]);
   const [totalAutomacoes, setTotalAutomacoes] = useState(0);
@@ -155,7 +165,7 @@ const Automacoes: React.FC = () => {
   return (
     <div className="relative">
       {/* Menu Lateral */}
-      <MenuLateral />
+      <MenuConnect />
 
       {/* Conteúdo da Página */}
       <div className="p-6 bg-gray-100">
@@ -218,7 +228,8 @@ const Automacoes: React.FC = () => {
               <p className="text-gray-600">{card.descricao}</p>
               <canvas
                 id={`chart-${card.id}`}
-                className="mt-4 w-full h-32"
+                className="mt-4 w-full h-32" /* Define altura fixa */
+                style={{ maxHeight: "128px" }} /* Para maior controle */
               ></canvas>
             </div>
           ))}
@@ -236,12 +247,7 @@ const Automacoes: React.FC = () => {
               &times;
             </button>
             <h2 className="text-lg font-bold mb-4">Detalhes do Evento</h2>
-            <canvas
-              id="modal-chart"
-              width="400"
-              height="250"
-              className="w-full h-48"
-            ></canvas>
+            <canvas id="modal-chart" width="400" height="250"></canvas>
           </div>
         </div>
       )}

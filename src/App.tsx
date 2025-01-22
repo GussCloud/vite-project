@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -7,28 +7,34 @@ import {
 } from "react-router-dom";
 import Login from "./components/Login";
 import Automacoes from "./components/Automacoes";
+import { isAuthenticated } from "./services/authService"; // Função para verificar autenticação
+
+// Componente para Rotas Protegidas
+const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
+  if (!isAuthenticated()) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
 
 const App: React.FC = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   return (
     <Router>
       <Routes>
-        {/* Página de Login */}
-        <Route
-          path="/login"
-          element={<Login setIsAuthenticated={setIsAuthenticated} />}
-        />
+        {/* Rota Pública */}
+        <Route path="/login" element={<Login />} />
 
-        {/* Página de Automações protegida */}
+        {/* Rota Protegida */}
         <Route
           path="/automacoes"
           element={
-            isAuthenticated ? <Automacoes /> : <Navigate to="/login" replace />
+            <ProtectedRoute>
+              <Automacoes />
+            </ProtectedRoute>
           }
         />
 
-        {/* Redirecionar para login por padrão */}
+        {/* Redirecionar rotas inválidas para login */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
