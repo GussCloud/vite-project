@@ -8,7 +8,6 @@ Chart.register(...registerables);
 
 const Automacoes: React.FC = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
   const tiposDeEventos = [
     "Segmentação de clientes",
     "Segmentação de LEADS",
