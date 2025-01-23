@@ -1,163 +1,109 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const MenuLateral: React.FC = () => {
-  const navigate = useNavigate();
-  const [isCollapsed, setIsCollapsed] = useState(true); // Menu contraído por padrão
-  const [activeMenu, setActiveMenu] = useState<string | null>(null);
-  const [isHovering, setIsHovering] = useState(false); // Estado para hover
-
-  const menuItems = [
-    {
-      label: "Dashboard",
-      icon: "fas fa-tachometer-alt",
-      action: () => navigate("/dashboard"),
-    },
-    {
-      label: "Comunicação",
-      icon: "fas fa-comments",
-      submenu: [
-        {
-          label: "Automações",
-          action: () => navigate("/automacoes"),
-        },
-        {
-          label: "Histórico de Notificações",
-          action: () => navigate("/historico-notificacoes"),
-        },
-      ],
-    },
-  ];
+  const [menuAberto, setMenuAberto] = useState(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
   const toggleMenu = () => {
-    setIsCollapsed((prev) => !prev);
+    setMenuAberto((prev) => !prev);
   };
 
-  const handleMouseEnter = () => {
-    setIsHovering(true);
+  const fecharMenu = () => {
+    setMenuAberto(false);
   };
 
-  const handleMouseLeave = () => {
-    setIsHovering(false);
-  };
+  // Fecha o menu ao clicar fora dele
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        fecharMenu();
+      }
+    };
 
-  const handleMenuClick = (menu: string) => {
-    setActiveMenu((prev) => (prev === menu ? null : menu)); // Alterna o submenu
-  };
-
-  const isMenuExpanded = !isCollapsed || isHovering;
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
-    <div
-      className={`fixed top-0 left-0 h-full text-gray-800 flex flex-col transition-all duration-300 ${
-        isMenuExpanded ? "w-64" : "w-16"
-      } bg-white shadow-md z-50`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      {/* Cabeçalho */}
-      <div
-        className={`p-4 flex items-center ${
-          isMenuExpanded ? "justify-between" : "justify-center"
-        }`}
-      >
-        <div className="flex items-center space-x-2">
-          <i className="fas fa-rocket text-orange-500 text-2xl"></i>
-          {isMenuExpanded && (
-            <span className="text-lg font-semibold">Connect</span>
-          )}
-        </div>
-        {isMenuExpanded && (
-          <button
-            onClick={toggleMenu}
-            className="text-gray-400 hover:text-gray-600"
-          >
-            <i className="fas fa-chevron-left"></i>
-          </button>
-        )}
-        {!isMenuExpanded && (
-          <button
-            onClick={toggleMenu}
-            className="text-gray-400 hover:text-gray-600"
-          >
-            <i className="fas fa-chevron-right"></i>
-          </button>
-        )}
-      </div>
-
-      {/* Itens do Menu */}
-      <nav className="flex-grow space-y-2 px-2">
-        {menuItems.map((item) =>
-          item.submenu ? (
-            <div key={item.label}>
-              {/* Menu Principal */}
-              <button
-                onClick={() => handleMenuClick(item.label)}
-                className={`flex items-center w-full px-4 py-3 transition ${
-                  isMenuExpanded ? "justify-start" : "justify-center"
-                } bg-gray-100 hover:bg-gray-200 rounded-lg`}
-              >
-                <i className={`${item.icon} text-xl`}></i>
-                {isMenuExpanded && (
-                  <>
-                    <span className="ml-4">{item.label}</span>
-                    <i
-                      className={`ml-auto fas ${
-                        activeMenu === item.label
-                          ? "fa-chevron-up"
-                          : "fa-chevron-down"
-                      }`}
-                    ></i>
-                  </>
-                )}
-              </button>
-
-              {/* Submenu */}
-              {isMenuExpanded && activeMenu === item.label && (
-                <div className="pl-8 mt-2 space-y-1">
-                  {item.submenu.map((subItem) => (
-                    <button
-                      key={subItem.label}
-                      onClick={subItem.action}
-                      className="flex items-center w-full px-4 py-2 hover:bg-gray-200 transition bg-gray-50 rounded-lg"
-                    >
-                      <i className="fas fa-circle text-xs text-gray-400 mr-4"></i>
-                      <span>{subItem.label}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          ) : (
-            <button
-              key={item.label}
-              onClick={item.action}
-              className={`flex items-center w-full px-4 py-3 transition ${
-                isMenuExpanded ? "justify-start" : "justify-center"
-              } bg-gray-100 hover:bg-gray-200 rounded-lg`}
-            >
-              <i className={`${item.icon} text-xl`}></i>
-              {isMenuExpanded && <span className="ml-4">{item.label}</span>}
-            </button>
-          )
-        )}
-      </nav>
-
-      {/* Botão de Logout */}
-      <div className="p-4 border-t border-gray-300">
+    <div className="relative">
+      {/* Botão Flutuante */}
+      {!menuAberto && (
         <button
-          onClick={() => {
-            localStorage.removeItem("isAuthenticated");
-            navigate("/login");
-          }}
-          className={`flex items-center w-full text-left text-red-400 hover:text-red-500 ${
-            isMenuExpanded ? "justify-start" : "justify-center"
-          }`}
+          onClick={toggleMenu}
+          className="fixed top-4 left-4 z-50 bg-gray-800 text-white w-12 h-12 rounded-lg shadow-md flex items-center justify-center hover:bg-gray-700 transition"
+          title="Abrir Menu"
         >
-          <i className="fas fa-sign-out-alt text-xl"></i>
-          {isMenuExpanded && <span className="ml-4">Logout</span>}
+          <i className="fas fa-bars"></i>
         </button>
+      )}
+
+      {/* Menu Lateral */}
+      <div
+        ref={menuRef}
+        className={`fixed top-10 z-50 bg-white shadow-lg rounded-lg transform transition-transform duration-500 ${
+          menuAberto ? "translate-x-6" : "-translate-x-full"
+        }`}
+        style={{
+          width: "240px",
+          left: "0",
+        }}
+      >
+        {/* Cabeçalho do Menu */}
+        <div className="p-4 bg-gradient-to-r from-blue-900 to-blue-700 text-center rounded-t-lg">
+          <h2 className="text-xl font-bold text-gray-100">Connect</h2>
+        </div>
+
+        {/* Itens do Menu */}
+        <nav className="flex flex-col p-4 space-y-2">
+          {/* Dashboard */}
+          <Link
+            to="/dashboard"
+            className="flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg p-2 transition"
+          >
+            <i className="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+          </Link>
+
+          {/* Comunicação */}
+          <div>
+            <button className="flex items-center justify-between w-full text-left bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg p-2 transition">
+              <span>
+                <i className="fas fa-comments"></i> Comunicação
+              </span>
+              <i className="fas fa-chevron-down"></i>
+            </button>
+            {/* Submenu */}
+            <div className="ml-4 mt-2 space-y-1">
+              <Link
+                to="/automacoes"
+                className="flex items-center space-x-2 hover:bg-gray-200 text-gray-600 rounded-lg p-2 transition"
+              >
+                <i className="fas fa-cogs"></i>
+                <span>Automações</span>
+              </Link>
+              <Link
+                to="/historico-notificacoes"
+                className="flex items-center space-x-2 hover:bg-gray-200 text-gray-600 rounded-lg p-2 transition"
+              >
+                <i className="fas fa-history"></i>
+                <span>Histórico de Notificações</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Relatórios */}
+          <Link
+            to="/relatorios"
+            className="flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg p-2 transition"
+          >
+            <i className="fas fa-chart-line"></i>
+            <span>Relatórios</span>
+          </Link>
+        </nav>
       </div>
     </div>
   );

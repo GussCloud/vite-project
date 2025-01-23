@@ -55,7 +55,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Painel de Indicadores Detalhados */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           <div className="col-span-1 lg:col-span-4 bg-white rounded-lg shadow-md">
             {/* Barra Superior */}
             <div className="bg-gradient-to-r from-blue-900 to-blue-700 py-2 px-4 rounded-t-lg">
