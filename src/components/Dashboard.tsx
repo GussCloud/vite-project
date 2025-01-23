@@ -1,5 +1,5 @@
 import React from "react";
-import MenuConnect from "./MenuConnect"; // Importando o Menu v1
+import MenuLateral from "./MenuLateral";
 
 const Dashboard: React.FC = () => {
   // Dados Fake
@@ -8,7 +8,7 @@ const Dashboard: React.FC = () => {
     { tipo: "Email", quantidade: 1200 },
     { tipo: "SMS", quantidade: 800 },
     { tipo: "Push Notification", quantidade: 1456 },
-  ]; // Tipos e dados fake
+  ];
 
   const mensagensDeEntrada = [
     {
@@ -43,100 +43,102 @@ const Dashboard: React.FC = () => {
   );
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* MenuConnect */}
-      <MenuConnect />
+    <div className="flex">
+      {/* Menu Lateral */}
+      <MenuLateral />
 
-      {/* Conteúdo do Dashboard */}
-      <div className="p-6 bg-gray-100 flex flex-col items-center flex-grow">
+      {/* Conteúdo Principal */}
+      <div className="flex-grow p-6 bg-gray-100 overflow-auto">
         {/* Título */}
-        <h1 className="text-4xl font-light text-gray-800 mb-8 w-full max-w-7xl">
-          Dashboard
-        </h1>
+        <div className="max-w-7xl mx-auto mb-8">
+          <h1 className="text-4xl font-light text-gray-800">Dashboard</h1>
+        </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl w-full">
-          {/* Card 1: Envios de Hoje */}
-          <div className="bg-white rounded-lg shadow-md p-2">
-            <div className="bg-blue-900 text-white py-2 px-4 rounded-lg  mb-6">
-              <h2 className="text-lg font-light text-center">Envios de Hoje</h2>
-            </div>
-            <div className="p-4">
-              <p className="text-5xl font-light text-center text-blue-500">
-                {envioHoje}
-              </p>
-            </div>
-          </div>
-
-          {/* Card 2: Envios por Tipo */}
-          <div className="bg-white rounded-lg shadow-md p-2">
-            <div className="bg-blue-900 text-white py-2 px-4 rounded-md mb-4">
-              <h2 className="text-lg font-light text-center">
-                Envios por Tipo
+        {/* Painel de Indicadores Detalhados */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          <div className="col-span-1 lg:col-span-4 bg-white rounded-lg shadow-md">
+            {/* Barra Superior */}
+            <div className="bg-gradient-to-r from-blue-900 to-blue-700 py-2 px-4 rounded-t-lg">
+              <h2 className="text-white font-semibold text-lg">
+                Indicadores Detalhados
               </h2>
             </div>
-            <div className="p-4">
-              <ul>
-                {enviosPorTipo.map((envio) => (
-                  <li
-                    key={envio.tipo}
-                    className="flex justify-between text-gray-600 py-2 border-b last:border-b-0"
-                  >
-                    <span>{envio.tipo}</span>
-                    <span className="font-light text-lg">
-                      {envio.quantidade}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
 
-          {/* Card 3: Mensagens de Entrada */}
-          <div className="bg-white rounded-lg shadow-md p-2">
-            <div className="bg-blue-900 text-white py-2 px-4 rounded-md mb-4">
-              <h2 className="text-lg font-light text-center">
-                Mensagens de Entrada
-              </h2>
-            </div>
-            <div className="p-4">
-              <ul>
-                {mensagensDeEntrada.map((mensagem) => {
-                  const porcentagem =
-                    (mensagem.quantidade / totalMensagens) * 100;
+            {/* Conteúdo do Painel */}
+            <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Envios de Hoje */}
+              <div className="bg-gray-50 shadow-md rounded-lg p-6 text-center">
+                <h2 className="text-xl font-semibold text-gray-700 mb-2">
+                  Envios de Hoje
+                </h2>
+                <p className="text-5xl font-extrabold text-blue-500">
+                  {envioHoje}
+                </p>
+              </div>
 
-                  return (
-                    <li key={mensagem.plataforma} className="mb-4">
-                      {/* Título e Ícone */}
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center space-x-2">
-                          <i
-                            className={`${mensagem.icone} text-lg`}
-                            style={{ color: mensagem.cor }}
-                          ></i>
-                          <span className="text-gray-600">
-                            {mensagem.plataforma}
+              {/* Envios por Tipo */}
+              <div className="bg-white shadow-md rounded-lg p-6">
+                <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                  Envios por Tipo
+                </h3>
+                <ul>
+                  {enviosPorTipo.map((envio) => (
+                    <li
+                      key={envio.tipo}
+                      className="flex justify-between text-gray-600 py-2 border-b last:border-b-0"
+                    >
+                      <span>{envio.tipo}</span>
+                      <span className="font-light text-lg">
+                        {envio.quantidade}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Mensagens de Entrada */}
+              <div className="bg-white shadow-md rounded-lg p-6">
+                <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                  Mensagens de Entrada
+                </h3>
+                <ul>
+                  {mensagensDeEntrada.map((mensagem) => {
+                    const porcentagem =
+                      (mensagem.quantidade / totalMensagens) * 100;
+
+                    return (
+                      <li key={mensagem.plataforma} className="mb-4">
+                        {/* Título e Ícone */}
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center space-x-2">
+                            <i
+                              className={`${mensagem.icone} text-lg`}
+                              style={{ color: mensagem.cor }}
+                            ></i>
+                            <span className="text-gray-600">
+                              {mensagem.plataforma}
+                            </span>
+                          </div>
+                          <span className="font-light text-gray-600">
+                            {mensagem.quantidade}
                           </span>
                         </div>
-                        <span className="font-light text-gray-600">
-                          {mensagem.quantidade}
-                        </span>
-                      </div>
 
-                      {/* Barra de Progresso */}
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div
-                          className="h-2 rounded-full"
-                          style={{
-                            width: `${porcentagem}%`,
-                            backgroundColor: mensagem.cor,
-                          }}
-                        ></div>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
+                        {/* Barra de Progresso */}
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div
+                            className="h-2 rounded-full"
+                            style={{
+                              width: `${porcentagem}%`,
+                              backgroundColor: mensagem.cor,
+                            }}
+                          ></div>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
