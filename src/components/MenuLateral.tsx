@@ -92,6 +92,13 @@ const MenuLateral: React.FC = () => {
                 <i className="fas fa-history"></i>
                 <span>Histórico de Notificações</span>
               </Link>
+              <Link
+                to="/kanban"
+                className="flex items-center space-x-2 hover:bg-gray-200 text-gray-600 rounded-lg p-2 transition"
+              >
+                <i className="fas fa-columns"></i>
+                <span>Kanban</span>
+              </Link>
             </div>
           </div>
 

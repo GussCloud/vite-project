@@ -1,96 +1,137 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Chart, registerables } from "chart.js";
 import MenuLateral from "./MenuLateral";
-import { useNavigate } from "react-router-dom";
-import { isAuthenticated } from "../services/authService";
 
 Chart.register(...registerables);
 
+interface Automacao {
+  id: number;
+  descricao: string;
+  detalhes: string;
+  estatisticas: {
+    enviadas: number;
+    entregues: number;
+    respondidas: number;
+    finalizadas: number;
+    grafico: number[];
+  };
+}
+
 const Automacoes: React.FC = () => {
-  const navigate = useNavigate();
-  const tiposDeEventos = [
-    "Segmentação de clientes",
-    "Segmentação de LEADS",
-    "Novo lead registrado",
-    "Aniversariantes",
-  ];
+  const [automacoes, setAutomacoes] = useState<Automacao[]>([]);
+  const [automacaoSelecionada, setAutomacaoSelecionada] = useState<
+    Automacao | null
+  >(null);
+  const chartRef = useRef<Chart | null>(null); // Referência para o gráfico
 
+  // Dados fake para as automações
   useEffect(() => {
-    if (!isAuthenticated()) {
-      navigate("/login");
-    }
-  }, [navigate]);
+    const dadosFake: Automacao[] = [
+      {
+        id: 1,
+        descricao: "Confirmação de agendamento",
+        detalhes:
+          "Esta automação envia confirmações para clientes que agendaram um serviço.",
+        estatisticas: {
+          enviadas: 150,
+          entregues: 140,
+          respondidas: 85,
+          finalizadas: 70,
+          grafico: [25, 40, 50, 70, 90, 120],
+        },
+      },
+      {
+        id: 2,
+        descricao: "Segmentação de leads",
+        detalhes:
+          "Automação para segmentar leads com base em interesses específicos.",
+        estatisticas: {
+          enviadas: 300,
+          entregues: 280,
+          respondidas: 220,
+          finalizadas: 180,
+          grafico: [50, 70, 100, 150, 200, 250],
+        },
+      },
+      {
+        id: 3,
+        descricao: "Aniversariantes do mês",
+        detalhes:
+          "Envia notificações de aniversário para clientes cadastrados.",
+        estatisticas: {
+          enviadas: 400,
+          entregues: 380,
+          respondidas: 320,
+          finalizadas: 300,
+          grafico: [60, 80, 120, 200, 300, 350],
+        },
+      },
+      {
+        id: 4,
+        descricao: "Follow-up de vendas",
+        detalhes:
+          "Automação para acompanhar vendas pendentes com lembretes automáticos.",
+        estatisticas: {
+          enviadas: 200,
+          entregues: 190,
+          respondidas: 150,
+          finalizadas: 130,
+          grafico: [30, 50, 90, 120, 150, 190],
+        },
+      },
+    ];
+    setAutomacoes(dadosFake);
+  }, []);
 
-  interface Card {
-    id: number;
-    descricao: string;
-    tipoEvento: string;
-    enviosHoje: number;
-    enviosDias: number[];
-    mensagens: {
-      criadas: number;
-      enviadas: number;
-      entregues: number;
-    };
-    status: string;
-  }
+  const selecionarAutomacao = (automacao: Automacao) => {
+    setAutomacaoSelecionada(automacao);
 
-  const [cards, setCards] = useState<Card[]>([]);
-  const [totalAutomacoes, setTotalAutomacoes] = useState(0);
-  const [totalEnvios, setTotalEnvios] = useState(0);
-  const [totalEntregues, setTotalEntregues] = useState(0);
+    // Atualiza o gráfico
+    setTimeout(() => {
+      const ctx = document.getElementById(
+        "automacao-chart"
+      ) as HTMLCanvasElement;
 
-  const randomNumber = (min: number, max: number) =>
-    Math.floor(Math.random() * (max - min + 1)) + min;
+      if (ctx) {
+        // Destroi o gráfico anterior, se existir
+        if (chartRef.current) {
+          chartRef.current.destroy();
+        }
 
-  const gerarStatus = () => (Math.random() > 0.5 ? "Ativo" : "Inativo");
-
-  const gerarCards = () => {
-    const novosCards = [];
-    let totalAutomacoesTemp = 0;
-    let totalEnviosTemp = 0;
-    let totalEntreguesTemp = 0;
-
-    for (let i = 1; i <= 30; i++) {
-      const id = 117 + i;
-      const descricao = `Confirmação de agenda ${randomNumber(12, 48)} horas`;
-      const tipoEvento =
-        tiposDeEventos[randomNumber(0, tiposDeEventos.length - 1)];
-      const enviosHoje = randomNumber(500, 5000);
-      const enviosDias = [
-        randomNumber(1000, 7000),
-        randomNumber(2000, 8000),
-        randomNumber(3000, 9000),
-      ];
-      const mensagens = {
-        criadas: randomNumber(5000, 10000),
-        enviadas: randomNumber(1000, 5000),
-        entregues: randomNumber(1000, 5000),
-      };
-
-      novosCards.push({
-        id,
-        descricao,
-        tipoEvento,
-        enviosHoje,
-        enviosDias,
-        mensagens,
-        status: gerarStatus(),
-      });
-
-      totalAutomacoesTemp++;
-      totalEnviosTemp += enviosHoje;
-      totalEntreguesTemp += mensagens.entregues;
-    }
-
-    setCards(novosCards);
-    setTotalAutomacoes(totalAutomacoesTemp);
-    setTotalEnvios(totalEnviosTemp);
-    setTotalEntregues(totalEntreguesTemp);
+        // Cria um novo gráfico
+        chartRef.current = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: ["D-6", "D-5", "D-4", "D-3", "D-2", "D-1"],
+            datasets: [
+              {
+                label: "Atividades",
+                data: automacao.estatisticas.grafico,
+                borderColor: "#3b82f6",
+                backgroundColor: "rgba(59, 130, 246, 0.2)",
+                fill: true,
+                tension: 0.4,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { y: { beginAtZero: true } },
+            plugins: { legend: { display: false } },
+          },
+        });
+      }
+    }, 100);
   };
 
   useEffect(() => {
-    gerarCards();
+    // Limpa o gráfico ao desmontar o componente
+    return () => {
+      if (chartRef.current) {
+        chartRef.current.destroy();
+      }
+    };
   }, []);
 
   return (
@@ -105,74 +146,89 @@ const Automacoes: React.FC = () => {
           <h1 className="text-4xl font-light text-gray-800">Automações</h1>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-          {/* Painel de Resumo */}
-          <div className="col-span-1 lg:col-span-4 bg-white rounded-lg shadow-md">
-            {/* Barra Superior */}
-            <div className="bg-gradient-to-r from-blue-900 to-blue-700 py-2 px-4 rounded-t-lg">
-              <h2 className="text-white font-semibold text-lg">Resumo</h2>
-            </div>
-
-            {/* Conteúdo do Painel */}
-            <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-gray-50 shadow-md rounded-lg p-6 text-center">
-                <h2 className="text-xl font-semibold text-gray-700 mb-2">
-                  Automações Ativas
-                </h2>
-                <p className="text-5xl font-extrabold text-blue-500">
-                  {totalAutomacoes}
-                </p>
-              </div>
-              <div className="bg-gray-50 shadow-md rounded-lg p-6 text-center">
-                <h2 className="text-xl font-semibold text-gray-700 mb-2">
-                  Total de Envios
-                </h2>
-                <p className="text-5xl font-extrabold text-green-500">
-                  {totalEnvios}
-                </p>
-              </div>
-              <div className="bg-gray-50 shadow-md rounded-lg p-6 text-center">
-                <h2 className="text-xl font-semibold text-gray-700 mb-2">
-                  Mensagens Entregues
-                </h2>
-                <p className="text-5xl font-extrabold text-yellow-500">
-                  {totalEntregues}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Painel de Automações */}
-          <div className="col-span-1 lg:col-span-4 bg-white rounded-lg shadow-md">
-            {/* Barra Superior */}
-            <div className="bg-gradient-to-r from-blue-900 to-blue-700 py-2 px-4 rounded-t-lg">
-              <h2 className="text-white font-semibold text-lg">Automações</h2>
-            </div>
-
-            {/* Conteúdo do Painel */}
-            <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {cards.map((card) => (
+        {/* Painel Principal */}
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Coluna da Esquerda: Lista de Automações */}
+          <div className="lg:col-span-2 bg-white rounded-lg shadow-md p-4">
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">
+              Lista de Automações
+            </h2>
+            <div className="space-y-4">
+              {automacoes.map((automacao) => (
                 <div
-                  key={card.id}
-                  className="bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow"
+                  key={automacao.id}
+                  onClick={() => selecionarAutomacao(automacao)}
+                  className={`p-4 border rounded-lg cursor-pointer ${
+                    automacaoSelecionada?.id === automacao.id
+                      ? "bg-blue-100 border-blue-500"
+                      : "bg-gray-50 hover:bg-gray-100"
+                  }`}
                 >
-                  <div className="flex justify-between items-center mb-2">
-                    <h2 className="text-md font-bold text-gray-800">
-                      #{card.id}
-                    </h2>
-                    <button className="text-blue-500 hover:text-blue-700">
-                      Ver Detalhes
-                    </button>
-                  </div>
-                  <p className="text-gray-600">{card.descricao}</p>
-                  <canvas
-                    id={`chart-${card.id}`}
-                    className="mt-4 w-full h-32"
-                    style={{ maxHeight: "128px" }}
-                  ></canvas>
+                  <h3 className="text-md font-bold text-gray-800">
+                    #{automacao.id}
+                  </h3>
+                  <p className="text-sm text-gray-600">{automacao.descricao}</p>
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Coluna da Direita: Detalhes da Automação */}
+          <div className="lg:col-span-2 bg-white rounded-lg shadow-md p-4">
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">
+              Detalhes da Automação
+            </h2>
+            {automacaoSelecionada ? (
+              <div>
+                <h3 className="text-md font-bold text-gray-800 mb-4">
+                  {automacaoSelecionada.descricao}
+                </h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  {automacaoSelecionada.detalhes}
+                </p>
+
+                {/* Estatísticas */}
+                <ul className="grid grid-cols-2 gap-4 mb-6">
+                  <li className="bg-blue-100 p-4 rounded-lg text-center">
+                    <h4 className="text-md font-bold text-gray-800">Enviadas</h4>
+                    <p className="text-lg font-light text-gray-600">
+                      {automacaoSelecionada.estatisticas.enviadas}
+                    </p>
+                  </li>
+                  <li className="bg-green-100 p-4 rounded-lg text-center">
+                    <h4 className="text-md font-bold text-gray-800">
+                      Entregues
+                    </h4>
+                    <p className="text-lg font-light text-gray-600">
+                      {automacaoSelecionada.estatisticas.entregues}
+                    </p>
+                  </li>
+                  <li className="bg-yellow-100 p-4 rounded-lg text-center">
+                    <h4 className="text-md font-bold text-gray-800">
+                      Respondidas
+                    </h4>
+                    <p className="text-lg font-light text-gray-600">
+                      {automacaoSelecionada.estatisticas.respondidas}
+                    </p>
+                  </li>
+                  <li className="bg-red-100 p-4 rounded-lg text-center">
+                    <h4 className="text-md font-bold text-gray-800">
+                      Finalizadas
+                    </h4>
+                    <p className="text-lg font-light text-gray-600">
+                      {automacaoSelecionada.estatisticas.finalizadas}
+                    </p>
+                  </li>
+                </ul>
+
+                {/* Gráfico */}
+                <div className="h-64">
+                  <canvas id="automacao-chart"></canvas>
+                </div>
+              </div>
+            ) : (
+              <p className="text-sm text-gray-600">Selecione uma automação.</p>
+            )}
           </div>
         </div>
       </div>
