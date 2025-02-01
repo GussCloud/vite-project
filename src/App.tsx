@@ -8,8 +8,9 @@ import {
 import Login from "./components/Login";
 import Automacoes from "./components/Automacoes";
 import Dashboard from "./components/Dashboard";
-import { isAuthenticated } from "./services/authService"; // Função para verificar autenticação
 import Kanban from "./components/Kanban";
+import Layout from "./components/Layout"; // Importamos o novo Layout
+import { isAuthenticated } from "./services/authService";
 
 // Componente para Rotas Protegidas
 const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
@@ -23,34 +24,22 @@ const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        {/* Rota Pública */}
+        {/* Rota de Login (Sem Layout) */}
         <Route path="/login" element={<Login />} />
 
-        {/* Rota Protegida */}
+        {/* Aplicando Layout automaticamente a todas as rotas protegidas */}
         <Route
-          path="/automacoes"
           element={
             <ProtectedRoute>
-              <Automacoes />
+              <Layout />
             </ProtectedRoute>
           }
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/kanban"
-          element={
-            <ProtectedRoute>
-              <Kanban />
-            </ProtectedRoute>
-          }
-        />
+        >
+          <Route path="/automacoes" element={<Automacoes />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/kanban" element={<Kanban />} />
+        </Route>
+
         {/* Redirecionar rotas inválidas para login */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>

@@ -43,106 +43,109 @@ const Dashboard: React.FC = () => {
   );
 
   return (
-    <div className="flex">
+    <div className="flex min-h-screen bg-gray-100">
       {/* Menu Lateral */}
       <MenuLateral />
-
       {/* Conteúdo Principal */}
-      <div className="flex-grow p-6 bg-gray-100 overflow-auto">
-        {/* Título */}
-        <div className="max-w-7xl mx-auto mb-8">
-          <h1 className="text-4xl font-light text-gray-800">Dashboard</h1>
-        </div>
+      <div className="flex flex-col flex-grow">
+        {/* Área de Conteúdo */}
+        <div className="p-6 overflow-auto flex-grow">
+          {/* Título */}
+          <div className="max-w-7xl mx-auto mb-8">
+            <h1 className="text-4xl font-light text-gray-800">Dashboard</h1>
+          </div>
 
-        {/* Painel de Indicadores Detalhados */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          <div className="col-span-1 lg:col-span-4 bg-white rounded-lg shadow-md">
-            {/* Barra Superior */}
-            <div className="bg-gradient-to-r from-blue-900 to-blue-700 py-2 px-4 rounded-t-lg">
-              <h2 className="text-white font-semibold text-lg">
-                Indicadores Detalhados
-              </h2>
-            </div>
-
-            {/* Conteúdo do Painel */}
-            <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* Envios de Hoje */}
-              <div className="bg-gray-50 shadow-md rounded-lg p-6 text-center">
-                <h2 className="text-xl font-semibold text-gray-700 mb-2">
-                  Envios de Hoje
+          {/* Painel de Indicadores Detalhados */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+            <div className="col-span-1 lg:col-span-4 bg-white rounded-lg shadow-md">
+              {/* Barra Superior */}
+              <div className="bg-gradient-to-r from-blue-900 to-blue-700 py-2 px-4 rounded-t-lg">
+                <h2 className="text-white font-semibold text-lg">
+                  Indicadores Detalhados
                 </h2>
-                <p className="text-5xl font-extrabold text-blue-500">
-                  {envioHoje}
-                </p>
               </div>
 
-              {/* Envios por Tipo */}
-              <div className="bg-white shadow-md rounded-lg p-6">
-                <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                  Envios por Tipo
-                </h3>
-                <ul>
-                  {enviosPorTipo.map((envio) => (
-                    <li
-                      key={envio.tipo}
-                      className="flex justify-between text-gray-600 py-2 border-b last:border-b-0"
-                    >
-                      <span>{envio.tipo}</span>
-                      <span className="font-light text-lg">
-                        {envio.quantidade}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {/* Conteúdo do Painel */}
+              <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* Envios de Hoje */}
+                <div className="bg-gray-50 shadow-md rounded-lg p-6 text-center">
+                  <h2 className="text-xl font-semibold text-gray-700 mb-2">
+                    Envios de Hoje
+                  </h2>
+                  <p className="text-5xl font-extrabold text-blue-500">
+                    {envioHoje}
+                  </p>
+                </div>
 
-              {/* Mensagens de Entrada */}
-              <div className="bg-white shadow-md rounded-lg p-6">
-                <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                  Mensagens de Entrada
-                </h3>
-                <ul>
-                  {mensagensDeEntrada.map((mensagem) => {
-                    const porcentagem =
-                      (mensagem.quantidade / totalMensagens) * 100;
+                {/* Envios por Tipo */}
+                <div className="bg-white shadow-md rounded-lg p-6">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                    Envios por Tipo
+                  </h3>
+                  <ul>
+                    {enviosPorTipo.map((envio) => (
+                      <li
+                        key={envio.tipo}
+                        className="flex justify-between text-gray-600 py-2 border-b last:border-b-0"
+                      >
+                        <span>{envio.tipo}</span>
+                        <span className="font-light text-lg">
+                          {envio.quantidade}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-                    return (
-                      <li key={mensagem.plataforma} className="mb-4">
-                        {/* Título e Ícone */}
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex items-center space-x-2">
-                            <i
-                              className={`${mensagem.icone} text-lg`}
-                              style={{ color: mensagem.cor }}
-                            ></i>
-                            <span className="text-gray-600">
-                              {mensagem.plataforma}
+                {/* Mensagens de Entrada */}
+                <div className="bg-white shadow-md rounded-lg p-6">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                    Mensagens de Entrada
+                  </h3>
+                  <ul>
+                    {mensagensDeEntrada.map((mensagem) => {
+                      const porcentagem =
+                        (mensagem.quantidade / totalMensagens) * 100;
+
+                      return (
+                        <li key={mensagem.plataforma} className="mb-4">
+                          {/* Título e Ícone */}
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center space-x-2">
+                              <i
+                                className={`${mensagem.icone} text-lg`}
+                                style={{ color: mensagem.cor }}
+                              ></i>
+                              <span className="text-gray-600">
+                                {mensagem.plataforma}
+                              </span>
+                            </div>
+                            <span className="font-light text-gray-600">
+                              {mensagem.quantidade}
                             </span>
                           </div>
-                          <span className="font-light text-gray-600">
-                            {mensagem.quantidade}
-                          </span>
-                        </div>
 
-                        {/* Barra de Progresso */}
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div
-                            className="h-2 rounded-full"
-                            style={{
-                              width: `${porcentagem}%`,
-                              backgroundColor: mensagem.cor,
-                            }}
-                          ></div>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
+                          {/* Barra de Progresso */}
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div
+                              className="h-2 rounded-full"
+                              style={{
+                                width: `${porcentagem}%`,
+                                backgroundColor: mensagem.cor,
+                              }}
+                            ></div>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div>{" "}
+      {/* Fim da área de conteúdo */}
     </div>
   );
 };

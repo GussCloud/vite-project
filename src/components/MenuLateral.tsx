@@ -30,7 +30,7 @@ const MenuLateral: React.FC = () => {
 
   return (
     <div className="relative">
-      {/* Botão Flutuante */}
+      {/* Botão Flutuante (Só aparece se o menu estiver fechado) */}
       {!menuAberto && (
         <button
           onClick={toggleMenu}
@@ -44,12 +44,13 @@ const MenuLateral: React.FC = () => {
       {/* Menu Lateral */}
       <div
         ref={menuRef}
-        className={`fixed top-10 z-50 bg-white shadow-lg rounded-lg transform transition-transform duration-500 ${
-          menuAberto ? "translate-x-6" : "-translate-x-full"
+        className={`fixed top-10 left-4 z-50 bg-white shadow-lg rounded-lg transform transition-all ease-in-out duration-500 ${
+          menuAberto
+            ? "translate-x-0 opacity-100 visible"
+            : "-translate-x-full opacity-0 invisible"
         }`}
         style={{
           width: "240px",
-          left: "0",
         }}
       >
         {/* Cabeçalho do Menu */}
