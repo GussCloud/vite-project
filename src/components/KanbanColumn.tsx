@@ -11,6 +11,7 @@ interface KanbanColumnProps {
     foto: string;
     origem: "whatsapp" | "instagram" | "facebook" | "email";
     tags: string[];
+    dataCriacao: Date;
   }[];
   onCardClick: (lead: any) => void;
 }
