@@ -4,10 +4,8 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const MenuLateral: React.FC = () => {
   const [menuAberto, setMenuAberto] = useState(false);
-  const [submenuComunicacaoAberto, setSubmenuComunicacaoAberto] =
-    useState(false);
-  const [submenuConfiguracoesAberto, setSubmenuConfiguracoesAberto] =
-    useState(false);
+  const [submenuComunicacaoAberto, setSubmenuComunicacaoAberto] = useState(false);
+  const [submenuConfiguracoesAberto, setSubmenuConfiguracoesAberto] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -26,8 +24,7 @@ const MenuLateral: React.FC = () => {
         menuAberto &&
         menuRef.current &&
         !menuRef.current.contains(event.target as Node) &&
-        (!buttonRef.current ||
-          !buttonRef.current.contains(event.target as Node))
+        (!buttonRef.current || !buttonRef.current.contains(event.target as Node))
       ) {
         fecharMenu();
       }
@@ -49,15 +46,19 @@ const MenuLateral: React.FC = () => {
 
   return (
     <div className="relative">
-      {/* Botão Flutuante (só aparece se o menu estiver fechado) */}
+      {/* Botão Flutuante com o Logo (só aparece se o menu estiver fechado) */}
       {!menuAberto && (
         <button
           ref={buttonRef}
           onClick={toggleMenu}
-          className="fixed top-4 left-4 z-50 bg-gray-800 text-white w-12 h-12 rounded-lg shadow-md flex items-center justify-center hover:bg-gray-700 transition"
+          className="fixed top-4 left-4 z-50 w-16 h-16 rounded-lg shadow-md flex items-center justify-center hover:opacity-80 transition"
           title="Abrir Menu"
         >
-          <i className="fas fa-bars"></i>
+          <img
+            src="https://storage.guss.dev.br/typebot/public/workspaces/cm5l2dige0000q70dd6nue9x1/typebots/cm6jq7pg90013q70dpz8fh5gr/blocks/das3vwdbc5ybl5x4eo1bljce?v=1738611446016"
+            alt="Logo"
+            className="w-full h-full object-contain"
+          />
         </button>
       )}
 
@@ -65,15 +66,17 @@ const MenuLateral: React.FC = () => {
       <div
         ref={menuRef}
         className={`fixed top-10 left-4 z-50 bg-white shadow-lg rounded-lg transform transition-all ease-in-out duration-500 ${
-          menuAberto
-            ? "translate-x-0 opacity-100 visible"
-            : "-translate-x-full opacity-0 invisible"
+          menuAberto ? "translate-x-0 opacity-100 visible" : "-translate-x-full opacity-0 invisible"
         }`}
         style={{ width: "240px" }}
       >
-        {/* Cabeçalho do Menu */}
-        <div className="p-4 bg-gradient-to-r from-blue-900 to-blue-700 text-center rounded-t-lg">
-          <h2 className="text-xl font-bold text-gray-100">Connect</h2>
+        {/* Cabeçalho do Menu com a imagem do Logo */}
+        <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-center rounded-t-lg">
+          <img
+            src="https://storage.guss.dev.br/typebot/public/workspaces/cm5l2dige0000q70dd6nue9x1/typebots/cm6jq7pg90013q70dpz8fh5gr/blocks/das3vwdbc5ybl5x4eo1bljce?v=1738611343546"
+            alt="Logo"
+            className="h-full rounded-t-lg object-contain"
+          />
         </div>
 
         {/* Itens do Menu */}
@@ -96,11 +99,7 @@ const MenuLateral: React.FC = () => {
               <span>
                 <i className="fas fa-cogs"></i> Configurações
               </span>
-              <i
-                className={`fas fa-chevron-${
-                  submenuConfiguracoesAberto ? "up" : "down"
-                }`}
-              ></i>
+              <i className={`fas fa-chevron-${submenuConfiguracoesAberto ? "up" : "down"}`}></i>
             </button>
             {/* Submenu Configurações: exibe se estiver aberto */}
             {submenuConfiguracoesAberto && (
@@ -132,11 +131,7 @@ const MenuLateral: React.FC = () => {
               <span>
                 <i className="fas fa-comments"></i> Comunicação
               </span>
-              <i
-                className={`fas fa-chevron-${
-                  submenuComunicacaoAberto ? "up" : "down"
-                }`}
-              ></i>
+              <i className={`fas fa-chevron-${submenuComunicacaoAberto ? "up" : "down"}`}></i>
             </button>
             {/* Submenu Comunicação: exibe se estiver aberto */}
             {submenuComunicacaoAberto && (
