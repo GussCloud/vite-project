@@ -30,7 +30,8 @@ const columnConfig: Record<string, { color: string; name: string }> = {
 };
 
 const Kanban: React.FC = () => {
-  const [selectedContato, setSelectedContato] = useState<Lead | null>(null);
+  // Estado para gerenciar os contatos abertos (cada um com seu modal/float button)
+  const [openContatos, setOpenContatos] = useState<Lead[]>([]);
 
   const [columns, setColumns] = useState<
     Record<keyof typeof columnConfig, Lead[]>
@@ -122,6 +123,16 @@ const Kanban: React.FC = () => {
     });
   };
 
+  // Ao clicar em um card, adiciona o contato à lista de chats abertos, se ainda não estiver
+  const handleCardClick = (lead: Lead) => {
+    setOpenContatos((prev) => {
+      if (!prev.some((c) => c.id === lead.id)) {
+        return [...prev, lead];
+      }
+      return prev;
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <MenuLateral />
@@ -184,9 +195,9 @@ const Kanban: React.FC = () => {
                                   ? "ring-2 ring-blue-500"
                                   : ""
                               }`}
-                              onClick={() => setSelectedContato(lead)}
+                              onClick={() => handleCardClick(lead)}
                             >
-                              {/* Chamando o novo componente KanbanCard */}
+                              {/* Chamando o componente KanbanCard */}
                               <KanbanCard {...lead} />
                             </div>
                           )}
@@ -202,11 +213,16 @@ const Kanban: React.FC = () => {
         </DragDropContext>
       </div>
 
-      {/* Modal de Contato */}
-      <ContatoModal
-        contato={selectedContato}
-        onClose={() => setSelectedContato(null)}
-      />
+      {/* Renderiza um ContatoModal para cada chat aberto */}
+      {openContatos.map((contato) => (
+        <ContatoModal
+          key={contato.id}
+          contato={contato}
+          onClose={() =>
+            setOpenContatos((prev) => prev.filter((c) => c.id !== contato.id))
+          }
+        />
+      ))}
     </div>
   );
 };

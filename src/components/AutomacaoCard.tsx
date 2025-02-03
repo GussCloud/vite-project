@@ -12,6 +12,7 @@ interface AutomacaoCardProps {
     finalizadas: number[];
   };
   ativa: boolean;
+  tipo: string;
 }
 
 const AutomacaoCard: React.FC<AutomacaoCardProps> = ({
@@ -20,8 +21,16 @@ const AutomacaoCard: React.FC<AutomacaoCardProps> = ({
   detalhes,
   estatisticas,
   ativa,
+  tipo,
 }) => {
   const [modalAberta, setModalAberta] = useState(false);
+
+  // Define as classes do badge com base no tipo da automação
+  const badgeClasses =
+    tipo === "IA" ? "bg-purple-500 text-white" : "bg-gray-300 text-black";
+
+  // Define o texto do badge com base no tipo da automação
+  const badgeText = tipo === "IA" ? "Criado por I.A" : "Criado Manualmente";
 
   return (
     <>
@@ -41,11 +50,16 @@ const AutomacaoCard: React.FC<AutomacaoCardProps> = ({
         {/* Divisor Vertical */}
         <div className="w-px bg-gray-300 h-12 mx-4"></div>
 
-        {/* Informações da Automação (Agora sempre com 150px) */}
-        <div className="flex items-center space-x-4 w-[300px] truncate">
+        {/* Informações da Automação: ID + Descrição e Tipo */}
+        <div className="flex flex-col w-[300px] truncate">
           <h3 className="text-base font-bold text-gray-800">
             #{id} - {descricao}
           </h3>
+          <span
+            className={`inline-block mt-1 px-2 py-1 text-xs font-medium rounded ${badgeClasses}`}
+          >
+            {badgeText}
+          </span>
         </div>
 
         {/* Divisor Vertical */}

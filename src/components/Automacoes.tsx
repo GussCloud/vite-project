@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MenuLateral from "../components/MenuLateral";
 import AutomacaoCard from "../components/AutomacaoCard";
+import NovaAutomacao from "../components/NovaAutomacao";
 
 interface Automacao {
   id: number;
@@ -13,10 +14,12 @@ interface Automacao {
     finalizadas: number[];
   };
   ativa: boolean;
+  tipo: string;
 }
 
 const Automacoes: React.FC = () => {
   const [automacoes, setAutomacoes] = useState<Automacao[]>([]);
+  const [isNovaAutomacaoOpen, setIsNovaAutomacaoOpen] = useState(false);
 
   // Simulação de dados (fake)
   useEffect(() => {
@@ -32,6 +35,7 @@ const Automacoes: React.FC = () => {
           finalizadas: [70],
         },
         ativa: true,
+        tipo: "IA",
       },
       {
         id: 2,
@@ -44,6 +48,7 @@ const Automacoes: React.FC = () => {
           finalizadas: [180],
         },
         ativa: false,
+        tipo: "Manual",
       },
       {
         id: 3,
@@ -56,6 +61,7 @@ const Automacoes: React.FC = () => {
           finalizadas: [300],
         },
         ativa: true,
+        tipo: "Manual",
       },
       {
         id: 4,
@@ -69,6 +75,7 @@ const Automacoes: React.FC = () => {
           finalizadas: [300],
         },
         ativa: true,
+        tipo: "IA",
       },
     ];
     setAutomacoes(dadosFake);
@@ -78,18 +85,17 @@ const Automacoes: React.FC = () => {
     <div className="min-h-screen bg-gray-100 flex">
       <MenuLateral />
 
-      <div className="flex flex-col flex-grow items-center p-6">
+      <div className="flex flex-col flex-grow items-center">
         {/* Cabeçalho da Automação */}
         <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white w-full max-w-7xl rounded-lg shadow-md p-4 flex justify-between items-center">
           <h1 className="text-2xl font-semibold">Automações</h1>
 
           <div className="flex space-x-4">
-            <button className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-md flex items-center">
+            <button
+              className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-md flex items-center"
+              onClick={() => setIsNovaAutomacaoOpen(true)}
+            >
               <i className="fas fa-plus-circle mr-2"></i> Nova Automação
-            </button>
-
-            <button className="bg-gray-600 hover:bg-gray-500 text-white py-2 px-4 rounded-md flex items-center">
-              <i className="fas fa-list mr-2"></i> Selecionar Automação
             </button>
           </div>
         </div>
@@ -101,6 +107,12 @@ const Automacoes: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* Componente NovaAutomacao acionado pelo botão "Nova Automação" */}
+      <NovaAutomacao
+        isOpen={isNovaAutomacaoOpen}
+        onClose={() => setIsNovaAutomacaoOpen(false)}
+      />
     </div>
   );
 };
