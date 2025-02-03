@@ -13,7 +13,15 @@ interface KanbanColumnProps {
     tags: string[];
     dataCriacao: Date;
   }[];
-  onCardClick: (lead: any) => void;
+  onCardClick: (lead: {
+    id: number;
+    nome: string;
+    telefone: string;
+    foto: string;
+    origem: "whatsapp" | "instagram" | "facebook" | "email";
+    tags: string[];
+    dataCriacao: Date;
+  }) => void;
 }
 
 // **✅ Cores e nomes corrigidos**

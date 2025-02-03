@@ -7,10 +7,10 @@ interface Automacao {
   descricao: string;
   detalhes: string;
   estatisticas: {
-    enviadas: number;
-    entregues: number;
-    respondidas: number;
-    finalizadas: number;
+    enviadas: number[];
+    entregues: number[];
+    respondidas: number[];
+    finalizadas: number[];
   };
   ativa: boolean;
 }
@@ -24,36 +24,49 @@ const Automacoes: React.FC = () => {
       {
         id: 1,
         descricao: "Confirmação de agendamento",
-        detalhes: "Envia confirmações para clientes agendados.",
+        detalhes: "CONFIRMAÇÂO DE AGENDAMENTO 24H ANTES",
         estatisticas: {
-          enviadas: 150,
-          entregues: 140,
-          respondidas: 85,
-          finalizadas: 70,
+          enviadas: [150],
+          entregues: [140],
+          respondidas: [85],
+          finalizadas: [70],
         },
         ativa: true,
       },
       {
         id: 2,
         descricao: "Segmentação de leads",
-        detalhes: "Segmenta leads por interesse.",
+        detalhes: "LEAD REGISTRADO PELA LP BEM VINDO",
         estatisticas: {
-          enviadas: 300,
-          entregues: 280,
-          respondidas: 220,
-          finalizadas: 180,
+          enviadas: [300],
+          entregues: [280],
+          respondidas: [220],
+          finalizadas: [180],
         },
         ativa: false,
       },
       {
         id: 3,
         descricao: "Aniversariantes do mês",
-        detalhes: "Notificações para clientes aniversariantes.",
+        detalhes: "ENVIO DE PARABÉNS PARA CLIENTES ANIVERSARIANTES",
         estatisticas: {
-          enviadas: 400,
-          entregues: 380,
-          respondidas: 320,
-          finalizadas: 300,
+          enviadas: [400],
+          entregues: [380],
+          respondidas: [320],
+          finalizadas: [300],
+        },
+        ativa: true,
+      },
+      {
+        id: 4,
+        descricao: "Segmentação de Clientes",
+        detalhes:
+          "CLIENTES COM COMPRA DE LASER SEM SESSÃO NOS ULTIMOS 45 DIAS.",
+        estatisticas: {
+          enviadas: [654],
+          entregues: [380],
+          respondidas: [320],
+          finalizadas: [300],
         },
         ativa: true,
       },
