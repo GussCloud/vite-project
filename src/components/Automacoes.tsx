@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import MenuLateral from "../components/MenuLateral";
 import AutomacaoCard from "../components/AutomacaoCard";
 import NovaAutomacao from "../components/NovaAutomacao";
 
@@ -83,8 +82,6 @@ const Automacoes: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex">
-      <MenuLateral />
-
       <div className="flex flex-col flex-grow items-center">
         {/* Cabeçalho da Automação */}
         <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white w-full max-w-7xl rounded-lg shadow-md p-4 flex justify-between items-center">

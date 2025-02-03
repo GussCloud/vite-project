@@ -1,5 +1,4 @@
 import React from "react";
-import MenuLateral from "./MenuLateral";
 import { Pie } from "react-chartjs-2"; // Usando chartjs para o gráfico de pizza
 
 const Dashboard: React.FC = () => {
@@ -102,9 +101,6 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      {/* Menu Lateral */}
-      <MenuLateral />
-
       {/* Conteúdo Principal */}
       <div className="flex flex-col flex-grow">
         {/* Header */}

@@ -6,6 +6,8 @@ const MenuLateral: React.FC = () => {
   const [menuAberto, setMenuAberto] = useState(false);
   const [submenuComunicacaoAberto, setSubmenuComunicacaoAberto] =
     useState(false);
+  const [submenuConfiguracoesAberto, setSubmenuConfiguracoesAberto] =
+    useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -39,6 +41,10 @@ const MenuLateral: React.FC = () => {
 
   const toggleSubmenuComunicacao = () => {
     setSubmenuComunicacaoAberto((prev) => !prev);
+  };
+
+  const toggleSubmenuConfiguracoes = () => {
+    setSubmenuConfiguracoesAberto((prev) => !prev);
   };
 
   return (
@@ -81,6 +87,42 @@ const MenuLateral: React.FC = () => {
             <span>Dashboard</span>
           </Link>
 
+          {/* Novo Menu - Configurações */}
+          <div>
+            <button
+              onClick={toggleSubmenuConfiguracoes}
+              className="flex items-center justify-between w-full text-left bg-gray-100 hover:bg-gradient-to-r hover:from-blue-900 hover:to-blue-700 text-gray-800 hover:text-gray-100 rounded-lg p-2 transition"
+            >
+              <span>
+                <i className="fas fa-cogs"></i> Configurações
+              </span>
+              <i
+                className={`fas fa-chevron-${
+                  submenuConfiguracoesAberto ? "up" : "down"
+                }`}
+              ></i>
+            </button>
+            {/* Submenu Configurações: exibe se estiver aberto */}
+            {submenuConfiguracoesAberto && (
+              <div className="ml-4 mt-2 space-y-1">
+                <Link
+                  to="/canais"
+                  className="flex items-center space-x-2 bg-gray-100 hover:bg-gradient-to-r hover:from-blue-900 hover:to-blue-700 text-gray-600 hover:text-gray-100 rounded-lg p-2 transition"
+                >
+                  <i className="fas fa-plug"></i>
+                  <span>Canais</span>
+                </Link>
+                <Link
+                  to="/configuracoes/fluxos-chatbot"
+                  className="flex items-center space-x-2 bg-gray-100 hover:bg-gradient-to-r hover:from-blue-900 hover:to-blue-700 text-gray-600 hover:text-gray-100 rounded-lg p-2 transition"
+                >
+                  <i className="fas fa-random"></i>
+                  <span>Fluxos de Chatbot</span>
+                </Link>
+              </div>
+            )}
+          </div>
+
           {/* Comunicação com submenu */}
           <div>
             <button
@@ -96,7 +138,7 @@ const MenuLateral: React.FC = () => {
                 }`}
               ></i>
             </button>
-            {/* Submenu: exibe se estiver aberto */}
+            {/* Submenu Comunicação: exibe se estiver aberto */}
             {submenuComunicacaoAberto && (
               <div className="ml-4 mt-2 space-y-1">
                 <Link
@@ -105,13 +147,6 @@ const MenuLateral: React.FC = () => {
                 >
                   <i className="fas fa-cogs"></i>
                   <span>Automações</span>
-                </Link>
-                <Link
-                  to="/historico-notificacoes"
-                  className="flex items-center space-x-2 bg-gray-100 hover:bg-gradient-to-r hover:from-blue-900 hover:to-blue-700 text-gray-600 hover:text-gray-100 rounded-lg p-2 transition"
-                >
-                  <i className="fas fa-history"></i>
-                  <span>Histórico de Notificações</span>
                 </Link>
                 <Link
                   to="/kanban"
