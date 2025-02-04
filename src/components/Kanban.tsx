@@ -5,7 +5,6 @@ import {
   Draggable,
   DropResult,
 } from "@hello-pangea/dnd";
-import MenuLateral from "../components/MenuLateral";
 import ContatoModal from "../components/ContatoModal";
 import KanbanCard from "../components/KanbanCard";
 import { FaPlus, FaThLarge } from "react-icons/fa"; // Ícones
@@ -135,8 +134,6 @@ const Kanban: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
-      <MenuLateral />
-
       {/* Cabeçalho do Painel Kanban */}
       <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white p-4 rounded-md shadow-md w-full max-w-7xl mx-auto flex justify-between items-center">
         <h1 className="text-2xl font-semibold">Painel Kanban</h1>

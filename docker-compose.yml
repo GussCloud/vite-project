@@ -1,0 +1,6 @@
+name: connectv2
+services:
+    viteteste:
+        ports:
+            - 8080:4173
+        image: gusscloud/viteteste:latest
