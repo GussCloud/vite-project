@@ -51,7 +51,7 @@ const MenuLateral: React.FC = () => {
         <button
           ref={buttonRef}
           onClick={toggleMenu}
-          className="fixed top-4 left-4 z-50 w-16 h-16 rounded-lg shadow-md flex items-center justify-center hover:opacity-80 transition"
+          className="fixed top-4 left-4 z-50 w-14 h-14 rounded-lg shadow-md flex items-center justify-center hover:opacity-80 transition"
           title="Abrir Menu"
         >
           <img
