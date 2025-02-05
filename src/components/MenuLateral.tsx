@@ -4,8 +4,10 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const MenuLateral: React.FC = () => {
   const [menuAberto, setMenuAberto] = useState(false);
-  const [submenuComunicacaoAberto, setSubmenuComunicacaoAberto] = useState(false);
-  const [submenuConfiguracoesAberto, setSubmenuConfiguracoesAberto] = useState(false);
+  const [submenuComunicacaoAberto, setSubmenuComunicacaoAberto] =
+    useState(false);
+  const [submenuConfiguracoesAberto, setSubmenuConfiguracoesAberto] =
+    useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -24,7 +26,8 @@ const MenuLateral: React.FC = () => {
         menuAberto &&
         menuRef.current &&
         !menuRef.current.contains(event.target as Node) &&
-        (!buttonRef.current || !buttonRef.current.contains(event.target as Node))
+        (!buttonRef.current ||
+          !buttonRef.current.contains(event.target as Node))
       ) {
         fecharMenu();
       }
@@ -66,16 +69,18 @@ const MenuLateral: React.FC = () => {
       <div
         ref={menuRef}
         className={`fixed top-10 left-4 z-50 bg-white shadow-lg rounded-lg transform transition-all ease-in-out duration-500 ${
-          menuAberto ? "translate-x-0 opacity-100 visible" : "-translate-x-full opacity-0 invisible"
+          menuAberto
+            ? "translate-x-0 opacity-100 visible"
+            : "-translate-x-full opacity-0 invisible"
         }`}
         style={{ width: "240px" }}
       >
         {/* Cabeçalho do Menu com a imagem do Logo */}
         <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-center rounded-t-lg">
           <img
-            src="https://storage.guss.dev.br/typebot/public/workspaces/cm5l2dige0000q70dd6nue9x1/typebots/cm6jq7pg90013q70dpz8fh5gr/blocks/das3vwdbc5ybl5x4eo1bljce?v=1738611343546"
+            src="https://storage.guss.dev.br/typebot/public/workspaces/cm5l2dige0000q70dd6nue9x1/typebots/cm6jq7pg90013q70dpz8fh5gr/blocks/k2f0v1ukieb1lmca124hgre0?v=1738787753588"
             alt="Logo"
-            className="h-full rounded-t-lg object-contain"
+            className="rounded-t-lg object-contain mx-auto"
           />
         </div>
 
@@ -99,7 +104,11 @@ const MenuLateral: React.FC = () => {
               <span>
                 <i className="fas fa-cogs"></i> Configurações
               </span>
-              <i className={`fas fa-chevron-${submenuConfiguracoesAberto ? "up" : "down"}`}></i>
+              <i
+                className={`fas fa-chevron-${
+                  submenuConfiguracoesAberto ? "up" : "down"
+                }`}
+              ></i>
             </button>
             {/* Submenu Configurações: exibe se estiver aberto */}
             {submenuConfiguracoesAberto && (
@@ -131,7 +140,11 @@ const MenuLateral: React.FC = () => {
               <span>
                 <i className="fas fa-comments"></i> Comunicação
               </span>
-              <i className={`fas fa-chevron-${submenuComunicacaoAberto ? "up" : "down"}`}></i>
+              <i
+                className={`fas fa-chevron-${
+                  submenuComunicacaoAberto ? "up" : "down"
+                }`}
+              ></i>
             </button>
             {/* Submenu Comunicação: exibe se estiver aberto */}
             {submenuComunicacaoAberto && (

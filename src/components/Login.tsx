@@ -44,7 +44,7 @@ const Login: React.FC = () => {
         {/* Lado esquerdo com a imagem */}
         <div className="w-1/2 bg-gray-200">
           <img
-            src="https://storage.guss.dev.br/typebot/public/workspaces/cm5l2dige0000q70dd6nue9x1/typebots/cm6jq7pg90013q70dpz8fh5gr/blocks/das3vwdbc5ybl5x4eo1bljce?v=1738611314775"
+            src="https://storage.guss.dev.br/typebot/public/workspaces/cm5l2dige0000q70dd6nue9x1/typebots/cm6jq7pg90013q70dpz8fh5gr/blocks/k2f0v1ukieb1lmca124hgre0?v=1738787846392"
             alt="Login Illustration"
             className="w-max h-full object-cover"
           />
