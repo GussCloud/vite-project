@@ -77,7 +77,7 @@ const Dashboard: React.FC = () => {
     ],
   };
 
-  // Dados para as estatísticas de autmações
+  // Dados para as estatísticas de automações
   const automacoesPorTipo = [
     {
       tipo: "Confirmação de Agendamento",
@@ -98,6 +98,18 @@ const Dashboard: React.FC = () => {
       cor: "#10b981",
     },
   ];
+
+  // Dados para o Funil de LEADS
+  // Valores: 5000, 200, 50 e 7.
+  // Para amenizar a diferença extrema entre os valores, usamos uma escala logarítmica.
+  const funilLeads = [
+    { etapa: "Cadastrados", valor: 3000 },
+    { etapa: "Agendados", valor: 200 },
+    { etapa: "Qualificados", valor: 50 },
+    { etapa: "Vendas realizadas", valor: 7 },
+  ];
+  const maxFunilValue = funilLeads[0].valor; // 5000 como referência
+  const maxWidthPx = 300; // largura máxima desejada para a etapa com maior valor
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -229,13 +241,45 @@ const Dashboard: React.FC = () => {
               </ul>
             </div>
 
-            {/* Novo Card: Fontes de LEAD */}
+            {/* Card 4: Fontes de LEAD */}
             <div className="bg-white shadow-md rounded-lg p-6 col-span-1">
               <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
                 Fontes de LEAD
               </h3>
               <div className="w-full h-72">
                 <Pie data={fontesLeadData} />
+              </div>
+            </div>
+
+            {/* Novo Card: Funil de LEADS */}
+            <div className="bg-white shadow-md rounded-lg p-6 col-span-1">
+              <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+                Funil de LEADS
+              </h3>
+              <div className="space-y-6">
+                {funilLeads.map((fase) => {
+                  // Usando escala logarítmica para amenizar a diferença extrema entre os valores
+                  const widthPx = (Math.log(fase.valor) / Math.log(maxFunilValue)) * maxWidthPx;
+                  return (
+                    <div key={fase.etapa}>
+                      {/* Texto da etapa, centralizado no card */}
+                      <p className="text-center font-semibold text-gray-700 mb-1">
+                        {fase.etapa}
+                      </p>
+                      {/* Barra de progresso centralizada */}
+                      <div className="flex justify-center">
+                        <div
+                          className="bg-blue-500 rounded-full h-8 flex items-center justify-center"
+                          style={{ width: `${widthPx}px` }}
+                        >
+                          <span className="text-white font-bold text-sm">
+                            {fase.valor}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
