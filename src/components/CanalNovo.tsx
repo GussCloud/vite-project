@@ -49,7 +49,7 @@ const CanalNovo: React.FC<CanalNovoProps> = ({ isOpen, onClose }) => {
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
       ariaHideApp={false}
     >
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-2xl p-0">
+      <div className="bg-white rounded-lg shadow-lg w-fit max-w-1xl p-0">
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-900 to-blue-500 text-white text-lg font-semibold p-4 rounded-t-lg flex justify-between items-center">
           <span>Novo Canal</span>
