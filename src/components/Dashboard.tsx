@@ -121,10 +121,10 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Área de Conteúdo */}
-        <div className="overflow-auto flex-grow">
+        <div className="dashbaord-cards overflow-auto flex-grow">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
             {/* Card 1: Total de Envios Hoje */}
-            <div className="bg-gray-50 shadow-md rounded-lg p-6 text-center">
+            <div className="dashbaord-totalsend bg-gray-50 shadow-md rounded-lg p-6 text-center">
               <h2 className="text-xl font-semibold text-gray-700 mb-2">
                 Total de Envios Hoje
               </h2>
@@ -166,7 +166,7 @@ const Dashboard: React.FC = () => {
             </div>
 
             {/* Card 2: Dados de Automações por Tipo */}
-            <div className="bg-white shadow-md rounded-lg p-6">
+            <div className="dashbaord-infotypes bg-white shadow-md rounded-lg p-6">
               <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
                 Dados de Automações por Tipo
               </h3>
@@ -202,7 +202,7 @@ const Dashboard: React.FC = () => {
             </div>
 
             {/* Card 3: Mensagens de Entrada */}
-            <div className="bg-white shadow-md rounded-lg p-6">
+            <div className="dashbaord-sendmessages bg-white shadow-md rounded-lg p-6">
               <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
                 Mensagens de Entrada
               </h3>
@@ -242,7 +242,7 @@ const Dashboard: React.FC = () => {
             </div>
 
             {/* Card 4: Fontes de LEAD */}
-            <div className="bg-white shadow-md rounded-lg p-6 col-span-1">
+            <div className="dashbaord-leadorign bg-white shadow-md rounded-lg p-6 col-span-1">
               <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
                 Fontes de LEAD
               </h3>
