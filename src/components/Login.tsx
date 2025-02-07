@@ -101,7 +101,7 @@ const Login: React.FC = () => {
               className={`w-full py-2 px-4 rounded-lg text-white ${
                 loading
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-gradient-to-r from-blue-900 to-blue-700 hover:bg-gradient-to-l from-blue-700 to-blue-500"
+                  : "bg-gradient-to-r from-blue-900 to-blue-700 hover:bg-gradient-to-r hover:from-blue-800 hover:to-blue-600"
               }`}
             >
               {loading ? "Entrando..." : "Entrar"}
