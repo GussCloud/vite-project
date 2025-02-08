@@ -3,14 +3,14 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import MenuLateral from "./MenuLateral";
 import Header from "./Header";
-import GuidedTour from "./GuidedTour";
+import GuidedTourDashboard from "./GuidedTourDashboard";
 
 const Layout: React.FC = () => {
   return (
     <>
       {/* Componente do tour guiado */}
-      <GuidedTour />
-      
+      <GuidedTourDashboard />
+
       <div className="flex min-h-screen bg-gray-100">
         {/* Menu Lateral */}
         <MenuLateral />

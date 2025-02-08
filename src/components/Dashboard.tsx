@@ -252,14 +252,16 @@ const Dashboard: React.FC = () => {
             </div>
 
             {/* Novo Card: Funil de LEADS */}
-            <div className="bg-white shadow-md rounded-lg p-6 col-span-1">
+            <div className="dashboard-leadfunnil bg-white shadow-md rounded-lg p-6 col-span-1">
               <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
                 Funil de LEADS
               </h3>
               <div className="space-y-6">
                 {funilLeads.map((fase) => {
                   // Usando escala logarítmica para amenizar a diferença extrema entre os valores
-                  const widthPx = (Math.log(fase.valor) / Math.log(maxFunilValue)) * maxWidthPx;
+                  const widthPx =
+                    (Math.log(fase.valor) / Math.log(maxFunilValue)) *
+                    maxWidthPx;
                   return (
                     <div key={fase.etapa}>
                       {/* Texto da etapa, centralizado no card */}
