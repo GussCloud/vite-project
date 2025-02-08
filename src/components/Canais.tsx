@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import CanalNovo from "./CanalNovo"; // Ajuste o caminho conforme a estrutura do seu projeto
 
 const Canais: React.FC = () => {
@@ -20,21 +21,38 @@ const Canais: React.FC = () => {
 
       {/* Conteúdo dos Canais */}
       <div className="overflow-auto flex-grow">
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          {/* Exemplo de Canal */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          {/* Card do WhatsApp */}
           <div className="bg-white shadow-md rounded-lg p-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-              Canal de WhatsApp
-            </h3>
-            <p className="text-gray-600 mb-2">Tipo: Mensagens Automáticas</p>
-            <p className="text-gray-600 mb-4">Status: Ativo</p>
+            <div className="flex justify-center items-center mb-4 space-x-2">
+              <FaWhatsapp size={48} color="#25D366" />
+              <img
+                src="https://randomuser.me/api/portraits/women/4.jpg"
+                alt="Perfil WhatsApp"
+                className="w-10 h-10 rounded-full"
+              />
+            </div>
+            <p className="text-gray-700 text-center font-bold">
+              Instancia: UnidadeJundiai
+            </p>
+            <p className="text-gray-700 text-center">Número: 5511987655568</p>
+            <p className="text-gray-700 text-center">Status: Conectado</p>
           </div>
+          {/* Card do Instagram */}
           <div className="bg-white shadow-md rounded-lg p-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-              Canal de Instagram
-            </h3>
-            <p className="text-gray-600 mb-2">Tipo: Mensagens Automáticas</p>
-            <p className="text-gray-600 mb-4">Status: Inativo</p>
+            <div className="flex justify-center items-center mb-4 space-x-2">
+              <FaInstagram size={48} color="#E1306C" />
+              <img
+                src="https://randomuser.me/api/portraits/women/5.jpg"
+                alt="Perfil Instagram"
+                className="w-10 h-10 rounded-full"
+              />
+            </div>
+            <p className="text-gray-700 text-center font-bold">
+              Instancia: UnidadeJundiai
+            </p>
+            <p className="text-gray-700 text-center">Conta: @UnidadeJundiai</p>
+            <p className="text-gray-700 text-center">Status: Conectado</p>
           </div>
         </div>
       </div>

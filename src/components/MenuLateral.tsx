@@ -127,6 +127,13 @@ const MenuLateral: React.FC = () => {
                   <i className="fas fa-random"></i>
                   <span>Fluxos de Chatbot</span>
                 </Link>
+                <Link
+                  to="/configuracoes/fluxos-chatbot"
+                  className="flex items-center space-x-2 bg-gray-100 hover:bg-gradient-to-r hover:from-blue-900 hover:to-blue-700 text-gray-600 hover:text-gray-100 rounded-lg p-2 transition"
+                >
+                  <i className="fas fa-tag"></i>
+                  <span>Smart Tags</span>
+                </Link>
               </div>
             )}
           </div>

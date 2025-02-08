@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Pie } from "react-chartjs-2"; // Usando chartjs para o gráfico de pizza
+import GuidedTourDashboard from "./GuidedTourDashboard"; // Importando o componente do tour guiado
 
 const Dashboard: React.FC = () => {
+  // Estado para controlar se o tour guiado deve ser executado
+  const [runTour, setRunTour] = useState(false);
+
   // Dados Fake
   const envioHoje = 3456; // Valor fake para "Envios de Hoje"
 
@@ -100,24 +104,32 @@ const Dashboard: React.FC = () => {
   ];
 
   // Dados para o Funil de LEADS
-  // Valores: 5000, 200, 50 e 7.
-  // Para amenizar a diferença extrema entre os valores, usamos uma escala logarítmica.
   const funilLeads = [
     { etapa: "Cadastrados", valor: 3000 },
     { etapa: "Agendados", valor: 200 },
     { etapa: "Qualificados", valor: 50 },
     { etapa: "Vendas realizadas", valor: 7 },
   ];
-  const maxFunilValue = funilLeads[0].valor; // 5000 como referência
+  const maxFunilValue = funilLeads[0].valor;
   const maxWidthPx = 300; // largura máxima desejada para a etapa com maior valor
 
   return (
     <div className="flex min-h-screen bg-gray-100">
+      {/* Renderiza o GuidedTourDashboard quando runTour é true */}
+      {runTour && <GuidedTourDashboard />}
+
       {/* Conteúdo Principal */}
       <div className="flex flex-col flex-grow">
-        {/* Header */}
+        {/* Header do Dashboard com ícone para iniciar o tour */}
         <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white w-full max-w-7xl rounded-lg shadow-md p-4 mx-auto mb-8 flex justify-between items-center">
           <h1 className="text-2xl font-semibold">Dashboard</h1>
+          <button
+            onClick={() => setRunTour(true)}
+            className="text-white hover:text-gray-200 transition"
+            title="Iniciar Tour"
+          >
+            <i className="fas fa-question-circle text-2xl"></i>
+          </button>
         </div>
 
         {/* Área de Conteúdo */}
@@ -251,7 +263,7 @@ const Dashboard: React.FC = () => {
               </div>
             </div>
 
-            {/* Novo Card: Funil de LEADS */}
+            {/* Card 5: Funil de LEADS */}
             <div className="dashboard-leadfunnil bg-white shadow-md rounded-lg p-6 col-span-1">
               <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
                 Funil de LEADS
@@ -264,11 +276,9 @@ const Dashboard: React.FC = () => {
                     maxWidthPx;
                   return (
                     <div key={fase.etapa}>
-                      {/* Texto da etapa, centralizado no card */}
                       <p className="text-center font-semibold text-gray-700 mb-1">
                         {fase.etapa}
                       </p>
-                      {/* Barra de progresso centralizada */}
                       <div className="flex justify-center">
                         <div
                           className="bg-blue-500 rounded-full h-8 flex items-center justify-center"

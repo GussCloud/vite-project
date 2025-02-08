@@ -14,7 +14,7 @@ const ReleaseNotes: React.FC<ReleaseNotesProps> = ({ isOpen, onClose }) => {
       onRequestClose={onClose}
       contentLabel="Release Notes"
       ariaHideApp={false}
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 modal-scroll"
     >
       <div className="bg-white rounded-lg shadow-lg max-w-3xl w-full p-6 relative max-h-[80vh] overflow-y-auto">
         {/* Header do Modal */}
