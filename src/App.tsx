@@ -12,6 +12,7 @@ import Kanban from "./components/Kanban";
 import Layout from "./components/Layout"; // Importamos o novo Layout
 import { isAuthenticated } from "./services/authService";
 import Canais from "./components/Canais";
+import SmartTags from "./components/SmartTags";
 
 // Componente para Rotas Protegidas
 const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
@@ -40,6 +41,7 @@ const App: React.FC = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/canais" element={<Canais />} />
           <Route path="/kanban" element={<Kanban />} />
+          <Route path="/SmartTags" element={<SmartTags />} />
         </Route>
 
         {/* Redirecionar rotas inválidas para login */}

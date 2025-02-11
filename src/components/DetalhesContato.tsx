@@ -47,7 +47,7 @@ const DetalhesContato: React.FC<DetalhesContatoProps> = ({
       onClick={onClose} // Fecha o modal ao clicar fora do retângulo
     >
       <div
-        className="bg-white rounded-lg shadow-lg w-full max-w-4xl flex flex-col md:flex-row relative"
+        className="bg-white rounded-lg shadow-lg w-full max-w-6xl flex flex-col md:flex-row relative"
         onClick={(e) => e.stopPropagation()} // Impede que cliques internos fechem o modal
       >
         {/* Botões no topo à direita: Minimizar e Fechar */}
@@ -68,8 +68,8 @@ const DetalhesContato: React.FC<DetalhesContatoProps> = ({
           </button>
         </div>
 
-        {/* Lado Esquerdo: Chat */}
-        <div className="w-full md:w-1/2 p-4 border-r">
+        {/* Coluna 1: Chat (Esquerda) */}
+        <div className="w-full md:w-1/3 p-4 border-r">
           <h2 className="text-lg font-semibold text-gray-700 mb-3">
             Chat com {contato.nome}
           </h2>
@@ -102,8 +102,56 @@ const DetalhesContato: React.FC<DetalhesContatoProps> = ({
           </div>
         </div>
 
-        {/* Lado Direito: Informações do Contato */}
-        <div className="w-full md:w-1/2 p-6 flex flex-col items-center">
+        {/* Coluna 2: Histórico do Cliente (Central) */}
+        <div className="w-full md:w-1/3 p-4 border-r">
+          <div className="mb-4">
+            <h2 className="text-xl font-bold text-gray-800 border-b pb-2">
+              Histórico do Cliente
+            </h2>
+          </div>
+
+          {/* Seção: Últimos Agendamentos */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold text-gray-700 mb-2">
+              Últimos agendamentos
+            </h3>
+            <ul className="space-y-2">
+              {[1, 2, 3].map((item) => (
+                <li key={item} className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <i className="fas fa-calendar-alt text-gray-600"></i>
+                    <span className="text-sm text-gray-700">
+                      10/01/2025 09:00
+                    </span>
+                  </div>
+                  <span className="bg-purple-500 text-white text-xs px-2 py-1 rounded">
+                    Faltou
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Seção: Últimos Contatos */}
+          <div>
+            <h3 className="text-lg font-semibold text-gray-700 mb-2">
+              Últimos Contatos
+            </h3>
+            <ul className="space-y-2">
+              {[1, 2, 3].map((item) => (
+                <li key={item} className="flex items-center space-x-2">
+                  <i className="fas fa-comments text-gray-600"></i>
+                  <span className="text-sm text-gray-700">
+                    10/01/2025 12:50
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Coluna 3: Informações do Contato (Direita) */}
+        <div className="w-full md:w-1/3 p-6 flex flex-col items-center">
           <img
             src={contato.foto}
             alt={contato.nome}

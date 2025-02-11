@@ -6,6 +6,7 @@ import {
   DropResult,
 } from "@hello-pangea/dnd";
 import ContatoModal from "../components/ContatoModal";
+import ContatoAgendar from "../components/ContatoAgendar";
 import KanbanCard from "../components/KanbanCard";
 import { FaPlus, FaThLarge } from "react-icons/fa"; // Ícones
 
@@ -16,7 +17,7 @@ interface Lead {
   foto: string;
   origem: "whatsapp" | "instagram" | "facebook" | "email";
   tags: string[];
-  dataCriacao: Date; // Adicionando a data de criação
+  dataCriacao: Date;
 }
 
 // Cores e nomes das colunas
@@ -31,6 +32,8 @@ const columnConfig: Record<string, { color: string; name: string }> = {
 const Kanban: React.FC = () => {
   // Estado para gerenciar os contatos abertos (cada um com seu modal/float button)
   const [openContatos, setOpenContatos] = useState<Lead[]>([]);
+  // Estado para controlar o modal de agendamento
+  const [openContatoAgendar, setOpenContatoAgendar] = useState(false);
 
   const [columns, setColumns] = useState<
     Record<keyof typeof columnConfig, Lead[]>
@@ -101,7 +104,6 @@ const Kanban: React.FC = () => {
     ],
   });
 
-  // Função para movimentar os cards entre as colunas
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
 
@@ -122,7 +124,6 @@ const Kanban: React.FC = () => {
     });
   };
 
-  // Ao clicar em um card, adiciona o contato à lista de chats abertos, se ainda não estiver
   const handleCardClick = (lead: Lead) => {
     setOpenContatos((prev) => {
       if (!prev.some((c) => c.id === lead.id)) {
@@ -138,13 +139,10 @@ const Kanban: React.FC = () => {
       <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white p-4 rounded-md shadow-md w-full max-w-7xl mx-auto flex justify-between items-center">
         <h1 className="text-2xl font-semibold">Painel Kanban</h1>
         <div className="flex space-x-4">
-          {/* Botão Novo Kanban */}
           <button className="bg-blue-500 text-white px-4 py-2 rounded-md flex items-center space-x-2 hover:bg-blue-600 transition">
             <FaPlus />
             <span>Novo Kanban</span>
           </button>
-
-          {/* Opção Selecionar Kanban */}
           <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md flex items-center space-x-2 hover:bg-gray-300 transition">
             <FaThLarge />
             <span>Selecionar Kanban</span>
@@ -177,24 +175,15 @@ const Kanban: React.FC = () => {
                     {/* Lista de Cards */}
                     <div className="p-4 space-y-3 overflow-y-auto max-h-96">
                       {leads.map((lead: Lead, index) => (
-                        <Draggable
-                          key={lead.id}
-                          draggableId={lead.id.toString()}
-                          index={index}
-                        >
+                        <Draggable key={lead.id} draggableId={lead.id.toString()} index={index}>
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
-                              className={`cursor-pointer ${
-                                snapshot.isDragging
-                                  ? "ring-2 ring-blue-500"
-                                  : ""
-                              }`}
+                              className={`cursor-pointer ${snapshot.isDragging ? "ring-2 ring-blue-500" : ""}`}
                               onClick={() => handleCardClick(lead)}
                             >
-                              {/* Chamando o componente KanbanCard */}
                               <KanbanCard {...lead} />
                             </div>
                           )}
@@ -215,11 +204,20 @@ const Kanban: React.FC = () => {
         <ContatoModal
           key={contato.id}
           contato={contato}
-          onClose={() =>
-            setOpenContatos((prev) => prev.filter((c) => c.id !== contato.id))
-          }
+          onClose={() => setOpenContatos((prev) => prev.filter((c) => c.id !== contato.id))}
+          onAgendar={() => {
+            setOpenContatos([]);
+            setOpenContatoAgendar(true);
+          }}
         />
       ))}
+
+      {openContatoAgendar && (
+        <ContatoAgendar
+          isOpen={openContatoAgendar}
+          onClose={() => setOpenContatoAgendar(false)}
+        />
+      )}
     </div>
   );
 };
