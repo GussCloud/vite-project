@@ -14,6 +14,7 @@ interface SmartTag {
 const SmartTags: React.FC = () => {
   const [smartTags, setSmartTags] = useState<SmartTag[]>([]);
   const [isNovaSmartTagOpen, setIsNovaSmartTagOpen] = useState(false);
+  const [editingTag, setEditingTag] = useState<SmartTag | null>(null);
 
   // Simulação de dados fake
   useEffect(() => {
@@ -38,13 +39,38 @@ const SmartTags: React.FC = () => {
     setSmartTags(dadosFake);
   }, []);
 
+  const handleCriar = (novaTag: Omit<SmartTag, "id">) => {
+    if (editingTag) {
+      // Modo edição: atualiza a tag existente
+      setSmartTags((prev) =>
+        prev.map((tag) =>
+          tag.id === editingTag.id ? { ...tag, ...novaTag } : tag
+        )
+      );
+    } else {
+      // Modo criação: adiciona nova tag com id gerado
+      const newId = Date.now();
+      setSmartTags((prev) => [...prev, { id: newId, ...novaTag }]);
+    }
+    setEditingTag(null);
+    setIsNovaSmartTagOpen(false);
+  };
+
+  const handleEdit = (tag: SmartTag) => {
+    setEditingTag(tag);
+    setIsNovaSmartTagOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       {/* Cabeçalho */}
       <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white w-full max-w-7xl rounded-lg shadow-md p-4 flex justify-between items-center">
         <h1 className="text-2xl font-semibold">Smart Tags</h1>
         <button
-          onClick={() => setIsNovaSmartTagOpen(true)}
+          onClick={() => {
+            setEditingTag(null);
+            setIsNovaSmartTagOpen(true);
+          }}
           className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-md flex items-center"
         >
           <i className="fas fa-plus-circle mr-2"></i> Nova Smart Tag
@@ -54,19 +80,22 @@ const SmartTags: React.FC = () => {
       {/* Lista de Smart Tags */}
       <div className="w-full max-w-7xl mt-6 space-y-4">
         {smartTags.map((smartTag) => (
-          <SmartTagCard key={smartTag.id} {...smartTag} />
+          <SmartTagCard key={smartTag.id} {...smartTag} onEdit={() => handleEdit(smartTag)} />
         ))}
       </div>
 
-      {/* Modal para Nova Smart Tag */}
-      <NovaSmartTag
-        isOpen={isNovaSmartTagOpen}
-        onClose={() => setIsNovaSmartTagOpen(false)}
-        onCriar={(novaTag) => {
-          setSmartTags((prev) => [...prev, { id: Date.now(), ...novaTag }]);
-          setIsNovaSmartTagOpen(false);
-        }}
-      />
+      {/* Modal para criação/edição */}
+      {isNovaSmartTagOpen && (
+        <NovaSmartTag
+          isOpen={isNovaSmartTagOpen}
+          onClose={() => {
+            setIsNovaSmartTagOpen(false);
+            setEditingTag(null);
+          }}
+          onCriar={handleCriar}
+          initialData={editingTag || undefined}
+        />
+      )}
     </div>
   );
 };

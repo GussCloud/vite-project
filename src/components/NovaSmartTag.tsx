@@ -1,24 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
+
+interface SmartTagData {
+  tag: string;
+  cor: string;
+  descricao: string;
+  condicaoSe?: string;
+  condicaoEntao?: string;
+}
 
 interface NovaSmartTagProps {
   isOpen: boolean;
   onClose: () => void;
-  onCriar: (novaTag: {
-    tag: string;
-    cor: string;
-    descricao: string;
-    condicaoSe?: string;
-    condicaoEntao?: string;
-  }) => void;
+  onCriar: (novaTag: SmartTagData) => void;
+  initialData?: SmartTagData; // Dados iniciais para edição (opcional)
 }
 
-const NovaSmartTag: React.FC<NovaSmartTagProps> = ({ isOpen, onClose, onCriar }) => {
-  const [tag, setTag] = useState("");
-  const [cor, setCor] = useState("#000000");
-  const [descricao, setDescricao] = useState("");
-  const [condicaoSe, setCondicaoSe] = useState("");
-  const [condicaoEntao, setCondicaoEntao] = useState("");
+const NovaSmartTag: React.FC<NovaSmartTagProps> = ({ isOpen, onClose, onCriar, initialData }) => {
+  const [tag, setTag] = useState(initialData?.tag || "");
+  const [cor, setCor] = useState(initialData?.cor || "#000000");
+  const [descricao, setDescricao] = useState(initialData?.descricao || "");
+  const [condicaoSe, setCondicaoSe] = useState(initialData?.condicaoSe || "");
+  const [condicaoEntao, setCondicaoEntao] = useState(initialData?.condicaoEntao || "");
+
+  // Se os dados iniciais mudarem, atualiza os estados (modo edição)
+  useEffect(() => {
+    setTag(initialData?.tag || "");
+    setCor(initialData?.cor || "#000000");
+    setDescricao(initialData?.descricao || "");
+    setCondicaoSe(initialData?.condicaoSe || "");
+    setCondicaoEntao(initialData?.condicaoEntao || "");
+  }, [initialData]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,7 +41,7 @@ const NovaSmartTag: React.FC<NovaSmartTagProps> = ({ isOpen, onClose, onCriar })
       condicaoSe,
       condicaoEntao,
     });
-    // Limpar campos (opcional)
+    // Limpar campos (opcional, ou você pode manter os dados para edição contínua)
     setTag("");
     setCor("#000000");
     setDescricao("");
@@ -48,7 +60,7 @@ const NovaSmartTag: React.FC<NovaSmartTagProps> = ({ isOpen, onClose, onCriar })
       <div className="bg-white rounded-lg shadow-lg w-full max-w-xl">
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-900 to-blue-500 text-white text-lg font-semibold p-4 rounded-t-lg flex justify-between items-center">
-          <span>Nova Smart Tag</span>
+          <span>{initialData ? "Editar Smart Tag" : "Nova Smart Tag"}</span>
           <button onClick={onClose} className="text-white hover:text-gray-300">
             ✖
           </button>
@@ -100,7 +112,7 @@ const NovaSmartTag: React.FC<NovaSmartTagProps> = ({ isOpen, onClose, onCriar })
               <button
                 type="button"
                 onClick={() => {
-                  // Implemente a lógica para adicionar condição SE, se necessário
+                  // Lógica para adicionar condição SE (se necessário)
                 }}
                 className="ml-2 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md"
               >
@@ -124,7 +136,7 @@ const NovaSmartTag: React.FC<NovaSmartTagProps> = ({ isOpen, onClose, onCriar })
               <button
                 type="button"
                 onClick={() => {
-                  // Implemente a lógica para adicionar condição ENTÃO, se necessário
+                  // Lógica para adicionar condição ENTÃO (se necessário)
                 }}
                 className="ml-2 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md"
               >
@@ -135,7 +147,7 @@ const NovaSmartTag: React.FC<NovaSmartTagProps> = ({ isOpen, onClose, onCriar })
 
           <div className="flex justify-end">
             <button type="submit" className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-md">
-              Criar Tag
+              {initialData ? "Salvar Alterações" : "Criar Tag"}
             </button>
           </div>
         </form>

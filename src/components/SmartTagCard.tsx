@@ -7,6 +7,13 @@ interface SmartTagCardProps {
   cor: string;
   condicaoSe?: string;
   condicaoEntao?: string;
+  onEdit: (data: {
+    tag: string;
+    cor: string;
+    descricao: string;
+    condicaoSe?: string;
+    condicaoEntao?: string;
+  }) => void;
 }
 
 const SmartTagCard: React.FC<SmartTagCardProps> = ({
@@ -15,6 +22,7 @@ const SmartTagCard: React.FC<SmartTagCardProps> = ({
   cor,
   condicaoSe,
   condicaoEntao,
+  onEdit,
 }) => {
   return (
     <div className="bg-white shadow-md rounded-lg p-3 w-full max-w-7xl mx-auto flex items-center border border-gray-200 relative h-20">
@@ -57,7 +65,18 @@ const SmartTagCard: React.FC<SmartTagCardProps> = ({
 
       {/* Espaço Flex para alinhar ações à direita */}
       <div className="ml-auto flex space-x-3">
-        <button className="px-4 py-2 text-sm font-semibold text-white bg-yellow-500 rounded-md hover:bg-yellow-600 transition h-10 flex items-center">
+        <button
+          onClick={() =>
+            onEdit({
+              tag,
+              cor,
+              descricao,
+              condicaoSe,
+              condicaoEntao,
+            })
+          }
+          className="px-4 py-2 text-sm font-semibold text-white bg-yellow-500 rounded-md hover:bg-yellow-600 transition h-10 flex items-center"
+        >
           <i className="fas fa-edit mr-2"></i> Editar
         </button>
       </div>
