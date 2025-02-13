@@ -20,13 +20,13 @@ const GuidedTourDashboard: React.FC = () => {
     {
       target: ".dashbaord-infotypes", // header da aplicação
       content:
-        "Este é o cabeçalho, onde você encontra informações e ações importantes.",
+        "Este card mostra indormações por tipo de automação.",
       placement: "bottom",
     },
     {
       target: ".dashboard-leadfunnil", // header da aplicação
       content:
-        "Este é o cabeçalho, onde você encontra informações e ações importantes.",
+        "Este card mostra o funil de LEADS.",
       placement: "bottom",
     },
   ];

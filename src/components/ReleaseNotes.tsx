@@ -16,7 +16,7 @@ const ReleaseNotes: React.FC<ReleaseNotesProps> = ({ isOpen, onClose }) => {
       ariaHideApp={false}
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 modal-scroll"
     >
-      <div className="bg-white rounded-lg shadow-lg max-w-3xl w-full p-6 relative max-h-[80vh] overflow-y-auto">
+      <div className="modal-scroll bg-white rounded-lg shadow-lg max-w-3xl w-full p-6 relative max-h-[80vh] overflow-y-auto">
         {/* Header do Modal */}
         <div className="flex justify-between items-center mb-2">
           <h2 className="text-3xl font-bold">Release Notes 1.0.0.0</h2>

@@ -2,29 +2,35 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* Para navegadores WebKit */
-body::-webkit-scrollbar {
-  width: 0px; /* scrollbar oculto por padrão */
-  transition: width 0.3s;
+/* Chrome, Edge and Safari */
+*::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+}
+*::-webkit-scrollbar-track {
+  border-radius: 2px;
+  background-color: #DFE9EB;
 }
 
-body:hover::-webkit-scrollbar {
-  width: 8px; /* scrollbar aparece quando o mouse está no body */
+*::-webkit-scrollbar-track:hover {
+  background-color: #B8C0C2;
 }
 
-body::-webkit-scrollbar-track {
-  background: transparent;
+*::-webkit-scrollbar-track:active {
+  background-color: #B8C0C2;
 }
 
-body::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.5);
+*::-webkit-scrollbar-thumb {
   border-radius: 5px;
+  background-color: #BDC5BE;
 }
 
-/* Para Firefox */
-html {
-  scrollbar-width: thin; /* Define a largura fina */
-  scrollbar-color: rgba(0, 0, 0, 0.5) transparent;
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #ACB3AD;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: #BDC5BE;
 }
 
 /* Para modais nos navegadores WebKit */

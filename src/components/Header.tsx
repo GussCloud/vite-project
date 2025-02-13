@@ -4,20 +4,18 @@ import { useNavigate } from "react-router-dom";
 import UnidadeModal from "./UnidadeModal";
 import ReleaseNotes from "./ReleaseNotes";
 
+
+
 const Header: React.FC = () => {
-  const [unidadeSelecionada, setUnidadeSelecionada] = useState(
-    "SP - JUNDIAI - MAXI SHOPPING"
-  );
+  const [unidadeSelecionada, setUnidadeSelecionada] = useState("SP - JUNDIAI - MAXI SHOPPING");
   const [menuAberto, setMenuAberto] = useState(false);
   const [modalAberto, setModalAberto] = useState(false);
   const [notificacoesAberto, setNotificacoesAberto] = useState(false);
   const [releaseNotesOpen, setReleaseNotesOpen] = useState(false);
   const navigate = useNavigate();
 
-  // Ref para o dropdown de notificações
   const notificacoesRef = useRef<HTMLDivElement | null>(null);
 
-  // Fecha o dropdown de notificações ao clicar fora dele
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -41,6 +39,7 @@ const Header: React.FC = () => {
   };
 
   return (
+    
     <div className="bg-white shadow-md rounded-lg p-4 flex justify-between items-center w-full max-w-7xl mx-auto mt-4 relative">
       {/* Botão de Seleção de Unidade */}
       <button
@@ -60,12 +59,10 @@ const Header: React.FC = () => {
             className="relative p-2 rounded-full hover:bg-gray-100 transition"
           >
             <i className="fas fa-bell text-gray-800 text-xl"></i>
-            {/* Badge de Notificação */}
             <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
               1
             </span>
           </button>
-          {/* Dropdown de Notificações */}
           {notificacoesAberto && (
             <div
               ref={notificacoesRef}
@@ -73,12 +70,8 @@ const Header: React.FC = () => {
             >
               <div className="border border-gray-200 rounded p-2 h-20 flex flex-col justify-between">
                 <div>
-                  <span className="font-bold text-black block">
-                    Atualizações
-                  </span>
-                  <p className="text-xs text-gray-600">
-                    Uma nova versão 1.0.0.0 foi instalada
-                  </p>
+                  <span className="font-bold text-black block">Atualizações</span>
+                  <p className="text-xs text-gray-600">Uma nova versão 1.0.0.0 foi instalada</p>
                 </div>
                 <button
                   onClick={() => {
@@ -97,7 +90,7 @@ const Header: React.FC = () => {
         {/* Perfil do Usuário */}
         <div className="relative flex items-center space-x-3">
           <img
-            src="https://randomuser.me/api/portraits/men/5.jpg" // Foto do perfil fake
+            src="https://randomuser.me/api/portraits/men/5.jpg"
             alt="Perfil"
             className="w-10 h-10 rounded-full border border-gray-300 cursor-pointer"
             onClick={() => setMenuAberto((prev) => !prev)}
@@ -108,8 +101,6 @@ const Header: React.FC = () => {
           >
             João Silva
           </button>
-
-          {/* Menu Dropdown do Perfil */}
           {menuAberto && (
             <div className="absolute top-12 right-0 bg-white shadow-lg rounded-md w-40 p-2 animate-fade-in">
               <button
@@ -124,7 +115,7 @@ const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Modal de Seleção de Unidade */}
+      {/* Modal de Seleção de Unidade (com seleção aninhada) */}
       {modalAberto && (
         <UnidadeModal
           unidadeSelecionada={unidadeSelecionada}
