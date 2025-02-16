@@ -25,7 +25,7 @@ const SmartTagCard: React.FC<SmartTagCardProps> = ({
   onEdit,
 }) => {
   return (
-    <div className="bg-white shadow-md rounded-lg p-3 w-full max-w-7xl mx-auto flex items-center border border-gray-200 relative h-20">
+    <div className="bg-white shadow-md rounded-lg p-3 w-full max-w-7xl mx-auto flex items-center border border-gray-200 relative h-16">
       {/* Indicador lateral com a cor da tag */}
       <div
         className="absolute left-0 top-0 bottom-0 w-2 rounded-l-lg"
