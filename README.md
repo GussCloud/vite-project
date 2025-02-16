@@ -1,4 +1,4 @@
-# ReactAula Vite Project
+# Connect 2.0
 
 ![Logo](https://storage.guss.dev.br/typebot/public/workspaces/cm5l2dige0000q70dd6nue9x1/typebots/cm6jq7pg90013q70dpz8fh5gr/blocks/das3vwdbc5ybl5x4eo1bljce?v=1738611446016)
 
