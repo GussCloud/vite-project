@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
-import CanalNovo from "./CanalNovo"; // Ajuste o caminho conforme a estrutura do seu projeto
+import CanalNovo from "../components/CanalNovo"; // Ajuste o caminho conforme a estrutura do seu projeto
 
 const Canais: React.FC = () => {
   const [isCanalNovoOpen, setIsCanalNovoOpen] = useState(false);

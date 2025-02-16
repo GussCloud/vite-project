@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import GuidedTourDashboard from "./GuidedTourDashboard";
-import TotalEnviosCard from "./TotalEnviosCard";
-import AutomacoesCard from "./AutomacoesCard";
-import MensagensEntradaCard from "./MensagensEntradaCard";
-import FontesLeadCard from "./FontesLeadCard";
-import FunilLeadsCard from "./FunilLeadsCard";
+import GuidedTourDashboard from "../components/GuidedTourDashboard";
+import TotalEnviosCard from "../components/TotalEnviosCard";
+import AutomacoesCard from "../components/AutomacoesCard";
+import MensagensEntradaCard from "../components/MensagensEntradaCard";
+import FontesLeadCard from "../components/FontesLeadCard";
+import FunilLeadsCard from "../components/FunilLeadsCard";
 
 const Dashboard: React.FC = () => {
   const envioHoje = 3456;

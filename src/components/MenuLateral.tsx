@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../styles/gradient.css";
+import ReleaseNotes from "./ReleaseNotes"; // new import
 
 const MenuLateral: React.FC = () => {
   const [menuAberto, setMenuAberto] = useState(false);
@@ -9,6 +10,8 @@ const MenuLateral: React.FC = () => {
     useState(false);
   const [submenuConfiguracoesAberto, setSubmenuConfiguracoesAberto] =
     useState(false);
+  const [releaseNotesAberto, setReleaseNotesAberto] = useState(false); // New state to control ReleaseNotes visibility
+
   const menuRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -45,6 +48,10 @@ const MenuLateral: React.FC = () => {
 
   const toggleSubmenuConfiguracoes = () => {
     setSubmenuConfiguracoesAberto((prev) => !prev);
+  };
+
+  const abrirReleaseNotes = () => {
+    setReleaseNotesAberto(true);
   };
 
   return (
@@ -84,7 +91,7 @@ const MenuLateral: React.FC = () => {
         <nav className="flex flex-col p-4 space-y-2">
           <Link
             to="/dashboard"
-            className="flex items-center space-x-2 text-gray-800 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item"
+            className="flex items-center space-x-2 text-gray-800 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item border border-b-slate-400"
           >
             <i className="fas fa-tachometer-alt"></i>
             <span>Dashboard</span>
@@ -93,7 +100,7 @@ const MenuLateral: React.FC = () => {
           <div>
             <button
               onClick={toggleSubmenuConfiguracoes}
-              className="flex items-center justify-between w-full text-left text-gray-800 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item"
+              className="flex items-center justify-between w-full text-left text-gray-800 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item border border-b-slate-400"
             >
               <span>
                 <i className="fas fa-cogs"></i> Configurações
@@ -108,21 +115,21 @@ const MenuLateral: React.FC = () => {
               <div className="ml-4 mt-2 space-y-1">
                 <Link
                   to="/canais"
-                  className="flex items-center space-x-2 text-gray-600 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item"
+                  className="flex items-center space-x-2 text-gray-600 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item border border-b-slate-400"
                 >
                   <i className="fas fa-plug"></i>
                   <span>Canais</span>
                 </Link>
                 <Link
                   to="/configuracoes/fluxos-chatbot"
-                  className="flex items-center space-x-2 text-gray-600 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item"
+                  className="flex items-center space-x-2 text-gray-600 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item border border-b-slate-400"
                 >
                   <i className="fas fa-random"></i>
                   <span>Fluxos de Chatbot</span>
                 </Link>
                 <Link
                   to="/SmartTags"
-                  className="flex items-center space-x-2 text-gray-600 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item"
+                  className="flex items-center space-x-2 text-gray-600 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item border border-b-slate-400"
                 >
                   <i className="fas fa-tag"></i>
                   <span>Smart Tags</span>
@@ -134,7 +141,7 @@ const MenuLateral: React.FC = () => {
           <div>
             <button
               onClick={toggleSubmenuComunicacao}
-              className="flex items-center justify-between w-full text-left text-gray-800 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item"
+              className="flex items-center justify-between w-full text-left text-gray-800 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item border border-b-slate-400"
             >
               <span>
                 <i className="fas fa-comments"></i> Comunicação
@@ -149,14 +156,14 @@ const MenuLateral: React.FC = () => {
               <div className="ml-4 mt-2 space-y-1">
                 <Link
                   to="/automacoes"
-                  className="flex items-center space-x-2 text-gray-600 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item"
+                  className="flex items-center space-x-2 text-gray-600 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item border border-b-slate-400"
                 >
                   <i className="fas fa-cogs"></i>
                   <span>Automações</span>
                 </Link>
                 <Link
                   to="/kanban"
-                  className="flex items-center space-x-2 text-gray-600 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item"
+                  className="flex items-center space-x-2 text-gray-600 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item border border-b-slate-400"
                 >
                   <i className="fas fa-columns"></i>
                   <span>Kanban</span>
@@ -167,13 +174,25 @@ const MenuLateral: React.FC = () => {
 
           <Link
             to="/relatorios"
-            className="flex items-center space-x-2 text-gray-800 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item"
+            className="flex items-center space-x-2 text-gray-800 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item border border-b-slate-400"
           >
             <i className="fas fa-chart-line"></i>
             <span>Relatórios</span>
           </Link>
         </nav>
+        <div
+          onClick={abrirReleaseNotes}
+          className="cursor-pointer bg-black text-white text-xs p-1 rounded m-2 text-center"
+        >
+          Versão 1.0.0.0
+        </div>
       </div>
+      {releaseNotesAberto && (
+        <ReleaseNotes
+          isOpen={releaseNotesAberto}
+          onClose={() => setReleaseNotesAberto(false)}
+        />
+      )}
     </div>
   );
 };

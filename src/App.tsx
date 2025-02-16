@@ -6,12 +6,12 @@ import {
   Navigate,
 } from "react-router-dom";
 import Login from "./components/Login";
-import Automacoes from "./components/Automacoes";
-import Dashboard from "./components/Dashboard";
-import Kanban from "./components/Kanban";
+import Automacoes from "./pages/Automacoes";
+import Dashboard from "./pages/Dashboard";
+import Kanban from "./pages/Kanban";
 import Layout from "./components/Layout"; // Importamos o novo Layout
 import { isAuthenticated } from "./services/authService";
-import Canais from "./components/Canais";
+import Canais from "./pages/Canais";
 import SmartTags from "./components/SmartTags";
 
 // Componente para Rotas Protegidas
