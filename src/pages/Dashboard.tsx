@@ -5,6 +5,7 @@ import AutomacoesCard from "../components/AutomacoesCard";
 import MensagensEntradaCard from "../components/MensagensEntradaCard";
 import FontesLeadCard from "../components/FontesLeadCard";
 import FunilLeadsCard from "../components/FunilLeadsCard";
+import MensagensEntradaCardV2 from "../components/MensagensEntradaCardV2";
 
 const Dashboard: React.FC = () => {
   const envioHoje = 3456;
@@ -132,6 +133,10 @@ const Dashboard: React.FC = () => {
             />
             <AutomacoesCard automacoesPorTipo={automacoesPorTipo} />
             <MensagensEntradaCard
+              mensagensDeEntrada={mensagensDeEntrada}
+              totalMensagens={totalMensagens}
+            />
+            <MensagensEntradaCardV2
               mensagensDeEntrada={mensagensDeEntrada}
               totalMensagens={totalMensagens}
             />
