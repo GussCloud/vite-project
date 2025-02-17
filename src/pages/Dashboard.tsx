@@ -116,7 +116,7 @@ const Dashboard: React.FC = () => {
       {runTour && <GuidedTourDashboard />}
       <div className="flex flex-col flex-grow">
         <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white w-full max-w-7xl rounded-lg shadow-md p-4 mx-auto mb-8 flex justify-between items-center">
-          <h1 className="text-2xl font-semibold">Dashboard</h1>
+          <h1 className="text-2xl font-semibold">Dashboard V1</h1>
           <button
             onClick={() => setRunTour(true)}
             className="text-white hover:text-gray-200 transition"
