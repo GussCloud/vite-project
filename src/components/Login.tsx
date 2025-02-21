@@ -52,9 +52,7 @@ const Login: React.FC = () => {
 
         {/* Formulário de login */}
         <div className="w-1/2 p-8 flex flex-col justify-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">
-            Bem-vindo de volta!
-          </h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6"></h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             {errorMessage && (
               <div className="bg-red-100 text-red-700 p-3 rounded-lg">
