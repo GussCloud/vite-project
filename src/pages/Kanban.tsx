@@ -165,9 +165,7 @@ const Kanban: React.FC = () => {
               onClick={() => setShowDropdown((prev) => !prev)}
               className="relative bg-blue-500 text-white px-4 py-2 rounded-md flex items-center space-x-2 hover:bg-blue-600 transition"
             >
-              <span className="absolute -top-3 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-400 text-white text-xs px-1 py-0.5 rounded">
-                Seleção de Kanban
-              </span>
+             
               <span>{selectedKanban}</span>
             </button>
             {showDropdown && (
