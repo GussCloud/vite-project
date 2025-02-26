@@ -168,6 +168,14 @@ const MenuLateral: React.FC = () => {
                   <i className="fas fa-columns"></i>
                   <span>Kanban</span>
                 </Link>
+                {/* Nova opção NPS */}
+                <Link
+                  to="/nps"
+                  className="flex items-center space-x-2 text-gray-600 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item border border-b-slate-400"
+                >
+                  <i className="fas fa-star"></i>
+                  <span>NPS</span>
+                </Link>
               </div>
             )}
           </div>
