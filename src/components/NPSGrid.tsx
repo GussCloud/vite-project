@@ -6,12 +6,34 @@ interface Campaign {
   totalEnviados: number;
   totalRespostas: number;
   nota: number;
+  tags: string[]; // Added tags property
 }
 
 const campaigns: Campaign[] = [
-  { id: 1, name: "Campanha A", totalEnviados: 1000, totalRespostas: 200, nota: 8.5 },
-  { id: 2, name: "Campanha B", totalEnviados: 1200, totalRespostas: 300, nota: 9.0 },
-  { id: 3, name: "Campanha C", totalEnviados: 800, totalRespostas: 150, nota: 7.5 },
+  { 
+    id: 1, 
+    name: "Campanha A", 
+    totalEnviados: 1000, 
+    totalRespostas: 200, 
+    nota: 8.5, 
+    tags: ["Premium", "Cliente Antigo"] 
+  },
+  { 
+    id: 2, 
+    name: "Campanha B", 
+    totalEnviados: 1200, 
+    totalRespostas: 300, 
+    nota: 9.0, 
+    tags: ["Novo Lead", "Alta Prioridade"] 
+  },
+  { 
+    id: 3, 
+    name: "Campanha C", 
+    totalEnviados: 800, 
+    totalRespostas: 150, 
+    nota: 7.5, 
+    tags: ["Prospect", "B2B"] 
+  },
 ];
 
 const NPSGrid: React.FC = () => {
@@ -26,6 +48,7 @@ const NPSGrid: React.FC = () => {
             <th className="py-2 px-4 border-b text-center">Enviados</th>
             <th className="py-2 px-4 border-b text-center">Respostas</th>
             <th className="py-2 px-4 border-b text-center">Nota</th>
+            <th className="py-2 px-4 border-b text-center">Tags</th>
             <th className="py-2 px-4 border-b text-center">Opções</th>
           </tr>
         </thead>
@@ -36,6 +59,18 @@ const NPSGrid: React.FC = () => {
               <td className="py-2 px-4">{campaign.totalEnviados}</td>
               <td className="py-2 px-4">{campaign.totalRespostas}</td>
               <td className="py-2 px-4">{campaign.nota}</td>
+              <td className="py-2 px-4">
+                <div className="flex flex-wrap gap-1 justify-center">
+                  {campaign.tags.map((tag, index) => (
+                    <span 
+                      key={index} 
+                      className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </td>
               <td className="py-2 px-4">
                 <div className="relative inline-block">
                   <button
