@@ -156,7 +156,7 @@ const Kanban: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       {/* Cabeçalho do Painel Kanban */}
-      <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white p-4 rounded-md shadow-md w-full max-w-7xl mx-auto flex justify-between items-center">
+      <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white p-2 rounded-md shadow-md w-full max-w-full mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-4">
           <h1 className="text-2xl font-semibold">Painel Kanban</h1>
           {/* Dropdown */}
@@ -264,7 +264,7 @@ const Kanban: React.FC = () => {
           </div>
         ) : (
           <DragDropContext onDragEnd={onDragEnd}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 w-full max-w-7xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-2 w-full max-w-full">
               {Object.entries(columns).map(([columnId, leads]) => (
                 <Droppable key={columnId} droppableId={columnId}>
                   {(provided) => (

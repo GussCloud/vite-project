@@ -2,6 +2,7 @@ import React from "react";
 import CampaignTotalEnviadosCard from "../components/CampaignTotalEnviadosCard";
 import CampaignTotalRespostasCard from "../components/CampaignTotalRespostasCard";
 import OverallNotasCard from "../components/OverallNotasCard";
+import NPSGrid from "../components/NPSGrid"; // Import the new component
 
 const NPS: React.FC = () => {
   return (
@@ -23,6 +24,9 @@ const NPS: React.FC = () => {
           <OverallNotasCard />
         </div>
       </div>
+
+      {/* Render the new NPSGrid below the cards */}
+      <NPSGrid />
     </div>
   );
 };
