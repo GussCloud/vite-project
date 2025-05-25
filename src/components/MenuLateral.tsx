@@ -97,6 +97,14 @@ const MenuLateral: React.FC = () => {
             <span>Dashboard</span>
           </Link>
 
+          <Link
+            to="/agents"
+            className="flex items-center space-x-2 text-gray-800 hover:text-gray-100 rounded-lg p-2 shadow-md hover:shadow-lg transition gradient-item border border-b-slate-400"
+          >
+            <i className="fas fa-user-tie"></i>
+            <span>Agentes</span>
+          </Link>
+
           <div>
             <button
               onClick={toggleSubmenuConfiguracoes}
