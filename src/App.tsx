@@ -14,6 +14,7 @@ import { isAuthenticated } from "./services/authService";
 import Canais from "./pages/Canais";
 import SmartTags from "./components/SmartTags";
 import NPS from "./pages/NPS";
+import Agents from "./pages/Agents";
 
 // Componente para Rotas Protegidas
 const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
@@ -44,6 +45,7 @@ const App: React.FC = () => {
           <Route path="/kanban" element={<Kanban />} />
           <Route path="/SmartTags" element={<SmartTags />} />
           <Route path="/NPS" element={<NPS />} />
+          <Route path="/agents" element={<Agents />} />
         </Route>
 
         {/* Redirecionar rotas inválidas para login */}
