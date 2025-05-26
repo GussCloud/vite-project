@@ -6,6 +6,7 @@ import MensagensEntradaCard from "../components/MensagensEntradaCard";
 import FontesLeadCard from "../components/FontesLeadCard";
 import FunilLeadsCard from "../components/FunilLeadsCard";
 import MensagensEntradaCardV2 from "../components/MensagensEntradaCardV2";
+import DashCard from "../components/DashCard";
 
 const Dashboard: React.FC = () => {
   const envioHoje = 3456;
@@ -111,6 +112,16 @@ const Dashboard: React.FC = () => {
 
   const [runTour, setRunTour] = useState(false);
 
+  // Sample data for DashCard
+  const vendasMensais = [
+    { x: "Jan", y: 65 },
+    { x: "Fev", y: 59 },
+    { x: "Mar", y: 80 },
+    { x: "Abr", y: 81 },
+    { x: "Mai", y: 56 },
+    { x: "Jun", y: 55 },
+  ];
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       {runTour && <GuidedTourDashboard />}
@@ -145,6 +156,11 @@ const Dashboard: React.FC = () => {
               funilLeads={funilLeads}
               maxFunilValue={maxFunilValue}
               maxWidthPx={maxWidthPx}
+            />
+            <DashCard 
+              type="bargraph" 
+              title="Vendas Mensais" 
+              values={vendasMensais} 
             />
           </div>
         </div>
